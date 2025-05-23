@@ -54,7 +54,7 @@ export async function render(url: string) {
     const { collect } = setup(app)
     const template = await renderToString(app, ctx)
     const state = JSON.stringify(store.state.value)
-    const css = collect()
+    const style = collect()
 
-    return { template, state, css }
+    return { template, state, style }
 }

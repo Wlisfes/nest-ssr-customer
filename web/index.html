@@ -5,13 +5,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Nest SSR Customer</title>
-        <!-- app-style -->
+        <link rel="icon" href="/favicon.ico" />
+        <!--app-ssr-style-->
     </head>
     <body>
-        <div id="app"><!--app-vue-template--></div>
-        <script type="module" src="/web/entry-client.ts"></script>
+        <div id="app"><!--app-ssr-placeholder--></div>
+        <!-- <script type="module" src="/web/entry-client.ts"></script> -->
         <script>
-            window.__INITIAL_DATA__ = '<!--app--vue-state-->'
+            window.__INITIAL_DATA__ = '<!--app--ssr-state-->'
         </script>
     </body>
 </html>
