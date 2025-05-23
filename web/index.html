@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Nest SSR Customer</title>
+        <!-- app-style -->
+    </head>
+    <body>
+        <div id="app"><!--app-vue-template--></div>
+        <script type="module" src="/web/entry-client.ts"></script>
+        <script>
+            window.__INITIAL_DATA__ = '<!--app--vue-state-->'
+        </script>
+    </body>
+</html>
