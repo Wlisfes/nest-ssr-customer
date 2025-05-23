@@ -25,7 +25,9 @@ export default defineComponent({
                 Home
                 <router-link to="/user">User</router-link>
                 {userStore.list.map((item: any) => (
-                    <div key={item.keyId}>{item.user.nickname}</div>
+                    <div class="flex" key={item.keyId}>
+                        {item.user.nickname}
+                    </div>
                 ))}
             </div>
         )
