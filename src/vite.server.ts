@@ -1,5 +1,7 @@
 import { createServer, ViteDevServer } from 'vite'
 import { resolve } from 'path'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 
@@ -10,9 +12,23 @@ export async function createViteServer() {
     }
     return (viteServer = await createServer({
         publicDir: resolve(__dirname, '../../web/public'),
-        appType: 'custom',
-        server: { middlewareMode: true },
-        plugins: [Vue(), VueJsx()],
+        define: {
+            __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true'
+        },
+        server: {
+            middlewareMode: 'ssr'
+        },
+        plugins: [
+            Vue(),
+            VueJsx(),
+            Components({
+                dts: true,
+                deep: true,
+                extensions: ['vue'],
+                dirs: [resolve(__dirname, '../../web/components')],
+                resolvers: [NaiveUiResolver()]
+            })
+        ],
         resolve: {
             alias: {
                 '@': resolve(__dirname, '../../')
