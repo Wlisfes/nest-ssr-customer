@@ -1,3 +1,5 @@
+import '@unocss/reset/normalize.css'
+import 'virtual:uno.css'
 import { createSSRApp } from 'vue'
 import { createRouter } from '@/web/router'
 import { createPinia } from '@/web/store'

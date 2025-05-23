@@ -4,6 +4,7 @@ import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
+import Unocss from 'unocss/vite'
 
 let viteServer: ViteDevServer
 export async function createViteServer() {
@@ -18,9 +19,13 @@ export async function createViteServer() {
         server: {
             middlewareMode: 'ssr'
         },
+        ssr: {
+            noExternal: ['unocss']
+        },
         plugins: [
             Vue(),
             VueJsx(),
+            Unocss(),
             Components({
                 dts: true,
                 deep: true,
