@@ -1,7 +1,7 @@
 import { NestExpressApplication } from '@nestjs/platform-express'
 import { NestFactory } from '@nestjs/core'
-import { AppModule } from '@src/app.module'
-import { createViteServer } from '@src/vite.server'
+import { AppModule } from '@/src/app.module'
+import { createViteServer } from '@/src/vite.server'
 import * as compression from 'compression'
 
 async function bootstrap() {
