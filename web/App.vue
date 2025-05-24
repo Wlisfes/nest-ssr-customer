@@ -1,20 +1,16 @@
 <script lang="tsx">
 import { defineComponent } from 'vue'
 import { RouterView } from 'vue-router'
+import { dateZhCN, zhCN } from 'naive-ui'
 
 export default defineComponent({
     name: 'App',
     setup(props) {
-        return () => <RouterView></RouterView>
+        return () => (
+            <n-config-provider abstract inline-theme-disabled locale={zhCN} date-locale={dateZhCN}>
+                <RouterView></RouterView>
+            </n-config-provider>
+        )
     }
 })
 </script>
-
-<style>
-html,
-body,
-#app {
-    height: 100%;
-    overflow: hidden;
-}
-</style>
