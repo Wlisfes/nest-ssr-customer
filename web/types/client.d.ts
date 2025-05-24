@@ -2,11 +2,6 @@ import { RouteLocationNormalizedLoaded, Router } from 'vue-router'
 import { Request } from 'express'
 import { Pinia } from 'pinia'
 
-declare interface Window {
-    /**store数据类型**/
-    __INITIAL_DATA__: Omix
-}
-
 /**seo相关配置**/
 export interface MateServerOptions extends Omix {
     /**标题**/

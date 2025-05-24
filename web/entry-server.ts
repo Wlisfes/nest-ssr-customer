@@ -8,20 +8,19 @@ import { createAppServer } from './main'
 export async function render(ctx: Request, manifest: Record<string, string[]>, isStream = false) {
     const { app, router, store, collect } = createAppServer({ ssr: true })
 
-    const to: RouteLocationRaw = ctx.originalUrl
-
-    await router.push(to)
+    /**进入路由页面并等待执行完成**/
+    await router.push(ctx.originalUrl)
     await router.isReady()
-
+    /**缓存当前路由相关信息**/
     const route = router.currentRoute
     const routeMatched = route.value.matched
-
+    /**更新路由meta信息**/
     const meta = route.value.meta
     meta.title = `${meta.title}`
     meta.keywords = meta.keywords || ''
     meta.description = meta.description || ''
 
-    /* 获取当前路由对应所有的组件 */
+    /**获取to路由对应所有的组件**/
     const matchedComponents: any = []
     routeMatched.map(item => {
         if (item.components) {
@@ -30,40 +29,34 @@ export async function render(ctx: Request, manifest: Record<string, string[]>, i
     })
 
     /**
-     * config.router参数与客户端entry-client.ts中的config.router参数，router.currentRoute.value值不一致 原因:
-     * 因为服务端先执行了await router.isReady();，所以router.currentRoute.value的值是to
-     * 客户端entry-client.ts中当前路由还么有执行next()跳转，所以router.currentRoute.value的值还是from
-     * 所以asyncDataFun 集合中执行的请求，如果需要当前页面路由参数请用route获取
+     * config.router参数与服务端entry-server.ts中的config.router参数，router.currentRoute.value值不一致 原因:
+     * 因为客户端当前路由还么有执行next()跳转，所以router.currentRoute.value的值还是from
+     * 服务端entry-server.ts中先执行了await router.isReady();，所以router.currentRoute.value的值是to
+     * 所以httpServer集合中执行的请求，如果需要当前页面路由参数请用route获取
      */
-    const config = {
-        store: store,
-        route: route.value,
-        router,
-        ctx
-    }
+    const config = { store: store, route: route.value, router, ctx }
 
-    /* 获取 asyncDataFun 集合 */
-    const asyncDataFuncs: any = []
-    /* 获取 seoFun, 已页面为准（最后一个组件） */
-    let seoFun: any = null
+    /**获取httpServer集合**/
+    const httpServerOptions: any = []
+    /**获取httpMateServer,已页面为准最后一个组件**/
+    let mateCallback: any = null
     matchedComponents.map(component => {
-        const asyncData = component.asyncData || null
-        if (asyncData) {
-            if (isPromise(asyncData) === false) {
-                asyncDataFuncs.push(Promise.resolve(asyncData(config)))
+        const httpServer = component.httpServer || null
+        if (httpServer) {
+            if (isPromise(httpServer) === false) {
+                httpServerOptions.push(Promise.resolve(httpServer(config)))
             } else {
-                asyncDataFuncs.push(asyncData(config))
+                httpServerOptions.push(httpServer(config))
             }
         }
-
-        seoFun = component.seo || null
+        mateCallback = component.httpMateServer || null
     })
 
-    // 执行asyncDataFuncs（在页面生成之前）
-    await Promise.all(asyncDataFuncs)
-    // seo 赋值(在页面生成之前,asyncDataFuncs之后)
-    if (seoFun) {
-        const seo = seoFun(config)
+    /**执行在页面跳转之前httpServer**/
+    await Promise.all(httpServerOptions)
+    /**seo赋值: 在页面生成之前、httpServer之后**/
+    if (mateCallback) {
+        const seo = mateCallback(config)
         meta.title = seo.title ? `${seo.title}` : meta.title
         meta.keywords = seo.keywords || meta.keywords
         meta.description = seo.description || meta.description

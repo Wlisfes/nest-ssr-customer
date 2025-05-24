@@ -16,6 +16,7 @@
         "forceConsistentCasingInFileNames": true,
         "noUnusedLocals": false,
         "noUnusedParameters": false,
+        "useUnknownInCatchVariables": false,
         "jsx": "preserve",
         "jsxImportSource": "vue",
         "esModuleInterop": true,
