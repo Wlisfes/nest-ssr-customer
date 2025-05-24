@@ -4,6 +4,7 @@ import { resolve } from 'path'
 import { readFileSync } from 'fs'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
+import UnoCSS from 'unocss/vite'
 
 let viteServer: ViteDevServer
 export async function createViteServer() {
@@ -20,6 +21,7 @@ export async function createViteServer() {
             cssCodeSplit: false
         },
         plugins: [
+            UnoCSS(),
             Components({
                 dts: true,
                 deep: true,

@@ -1,3 +1,5 @@
+import '@unocss/reset/normalize.css'
+import 'uno.css'
 import { isPromise } from '@/utils/is'
 import { createAppServer } from './main'
 const { app, router, store } = createAppServer({ ssr: false })

@@ -22,10 +22,10 @@ export default defineComponent({
 
         return () => (
             <main>
-                <div class="home flex">Home</div>
+                <div class="home flex text-12">Home</div>
                 <common-element>法律框架的顺口溜附件是的</common-element>
                 <n-button>Click</n-button>
-                <n-card>的哈萨克的哈萨克巨大花洒就看到哈桑</n-card>
+                <n-card>的哈萨克的哈萨克巨大花洒就看到哈桑的撒大大萨达萨达33333333333333</n-card>
                 {userStore.list.map(item => (
                     <div key={item.keyId}>{item.user.nickname}</div>
                 ))}

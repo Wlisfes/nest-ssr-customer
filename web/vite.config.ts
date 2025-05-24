@@ -6,6 +6,7 @@ import Compression from 'vite-plugin-compression'
 import Analyzer from 'rollup-plugin-analyzer'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import Vue from '@vitejs/plugin-vue'
+import UnoCSS from 'unocss/vite'
 
 export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
     return {
@@ -25,6 +26,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
         plugins: [
             Vue(),
             VueJsx(),
+            UnoCSS({ mode: 'global' }),
             Analyzer({ summaryOnly: true }),
             Components({
                 dts: true,
