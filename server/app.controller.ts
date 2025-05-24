@@ -8,7 +8,6 @@ export class AppController {
     async fetchBaseRender(@Req() request) {
         try {
             return await createRouteServer(request)
-            return `Hello`
         } catch (error) {
             console.log(error)
             return '500'

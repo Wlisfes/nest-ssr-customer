@@ -15,12 +15,12 @@
         "esModuleInterop": true,
         "noImplicitAny": false,
         "lib": ["esnext", "dom"],
-        "types": ["vite/client"],
+        "types": ["../env.d.ts", "vite/client"],
         "baseUrl": ".",
         "paths": {
             "@/*": ["./*"],
             "~/*": ["../*"]
         }
     },
-    "include": ["./@types", "./**/*.ts", "./**/*.d.ts", "./**/*.tsx", "./**/*.vue"]
+    "include": ["./types", "./**/*.ts", "./**/*.d.ts", "./**/*.tsx", "./**/*.vue"]
 }

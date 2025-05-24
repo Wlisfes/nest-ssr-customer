@@ -1,3 +1,6 @@
+/**通用对象**/
+declare type Omix<T = Record<string, any>> = T & Record<string, any>
+
 declare namespace NodeJS {
     interface ProcessEnv {
         /**环境标识**/

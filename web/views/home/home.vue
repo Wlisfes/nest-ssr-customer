@@ -4,11 +4,11 @@ import { useUserStore } from '@/store/user'
 
 export default defineComponent({
     name: 'Home',
-    async asyncData({ store, route }) {
+    async httpServer({ store, route }) {
         const userStore = useUserStore(store)
         await userStore.fetchBaseColumnContact()
     },
-    seo({ store, route }) {
+    async httpMateServer({ store, route }) {
         return {
             title: '大幅拉升贷记卡沙拉蝴蝶卡'
         }
