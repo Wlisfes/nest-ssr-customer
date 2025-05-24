@@ -1,6 +1,6 @@
 <script lang="tsx">
 import { defineComponent, onMounted } from 'vue'
-import { useUserStore } from '@/web/store/user'
+import { useUserStore } from '@/store/user'
 
 export default defineComponent({
     name: 'Home',
@@ -35,7 +35,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .home {
     color: red;
 }

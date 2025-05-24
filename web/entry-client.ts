@@ -1,6 +1,8 @@
-import { createAppServer } from '@/web/main'
-import { isPromise } from '@/web/utils/is'
-const { app, router, store } = createAppServer()
+import { isPromise } from '@/utils/is'
+import { createAppServer } from './main'
+
+const { app, router, store } = createAppServer({ ssr: false })
+
 if (window.__INITIAL_DATA__) {
     store.state.value = window.__INITIAL_DATA__
 }
@@ -18,6 +20,9 @@ router.beforeResolve((to, from, next) => {
     const prevMatched = router.resolve(from).matched
 
     const meta = to.meta || {}
+    meta.title = `${meta.title}`
+    meta.keywords = meta.keywords || ''
+    meta.description = meta.description || ''
 
     // 判断是否在当前路由跳转，activated如果是空说明是当前路由来回跳转
     let diffed = false
@@ -71,8 +76,11 @@ router.beforeResolve((to, from, next) => {
     const setSeo = () => {
         if (seoFun) {
             const seo = seoFun(config)
-            document.title = seo.title
+            meta.title = seo.title ? `${seo.title}` : meta.title
+            meta.keywords = seo.keywords || meta.keywords
+            meta.description = seo.description || meta.description
         }
+        document.title = meta.title || ''
     }
 
     try {
@@ -91,5 +99,5 @@ router.beforeResolve((to, from, next) => {
 
 // 路由加载完成后在挂载
 router.isReady().then(() => {
-    app.mount('#app')
+    app.mount('#app', true)
 })
