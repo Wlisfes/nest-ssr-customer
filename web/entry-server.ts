@@ -5,7 +5,7 @@ import { Request } from 'express'
 import { isPromise } from '@/utils/is'
 import { createAppServer } from './main'
 
-export async function render(ctx: Request, manifest: Record<string, string[]>, isStream = false) {
+export async function render(ctx: Request, manifest: Record<string, string[]>) {
     const { app, router, store, collect } = createAppServer({ ssr: true })
 
     /**进入路由页面并等待执行完成**/
@@ -16,9 +16,9 @@ export async function render(ctx: Request, manifest: Record<string, string[]>, i
     const routeMatched = route.value.matched
     /**更新路由meta信息**/
     const meta = route.value.meta
-    meta.title = `${meta.title}`
-    meta.keywords = meta.keywords || ''
-    meta.description = meta.description || ''
+    meta.title = meta.title ?? ''
+    meta.keywords = meta.keywords ?? ''
+    meta.description = meta.description ?? ''
 
     /**获取to路由对应所有的组件**/
     const matchedComponents: any = []
