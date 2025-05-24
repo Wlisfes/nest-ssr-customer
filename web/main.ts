@@ -1,4 +1,5 @@
 import '@unocss/reset/normalize.css'
+import '@/styles/index.scss'
 import 'uno.css'
 import { createSSRApp } from 'vue'
 import { createRouter } from '@/router'

@@ -56,7 +56,7 @@ export async function render(ctx: Request, manifest: Record<string, string[]>) {
     await Promise.all(httpServerOptions)
     /**seo赋值: 在页面生成之前、httpServer之后**/
     if (mateCallback) {
-        const seo = mateCallback(config)
+        const seo = await mateCallback(config)
         meta.title = seo.title ? `${seo.title}` : meta.title
         meta.keywords = seo.keywords || meta.keywords
         meta.description = seo.description || meta.description

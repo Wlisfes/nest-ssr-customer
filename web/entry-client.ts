@@ -9,7 +9,7 @@ if (window.__INITIAL_DATA__) {
 }
 
 /**置服务器读取ajax数据，且浏览器第一次加载当前页时，不调取ajax数据**/
-router.beforeResolve((to, from, next) => {
+router.beforeResolve(async (to, from, next) => {
     /**第一次进入项目**/
     if (from && !from.name) {
         return next()
@@ -69,9 +69,9 @@ router.beforeResolve((to, from, next) => {
     })
 
     /**设置seo函数**/
-    const fetchMateCallback = () => {
+    const fetchMateCallback = async () => {
         if (mateCallback) {
-            const seo = mateCallback(config)
+            const seo = await mateCallback(config)
             meta.title = seo.title ? `${seo.title}` : meta.title
             meta.keywords = seo.keywords || meta.keywords
             meta.description = seo.description || meta.description
@@ -81,14 +81,14 @@ router.beforeResolve((to, from, next) => {
 
     try {
         /**执行在页面跳转之前httpServer**/
-        Promise.all(httpServerOptions).then(() => {
+        Promise.all(httpServerOptions).then(async () => {
             /**设置seo配置**/
-            fetchMateCallback()
+            await fetchMateCallback()
             next()
         })
     } catch (err) {
         /**设置seo配置**/
-        fetchMateCallback()
+        await fetchMateCallback()
         next(err)
     }
 })
