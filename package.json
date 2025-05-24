@@ -5,8 +5,8 @@
     "private": true,
     "scripts": {
         "install": "yarn install --ignore-scripts",
-        "dev": "nest start --watch",
-        "start": "node dist/main.js",
+        "dev": "cross-env NODE_ENV=development nest start --watch",
+        "start": "cross-env NODE_ENV=production node dist/main.js",
         "build": "nest build",
         "build:web": "npm run build:web:client && npm run build:web:server",
         "build:web:client": "vite --config web/vite.config.ts build --ssrManifest --outDir ../build/client",
@@ -15,6 +15,7 @@
     "dependencies": {
         "@nestjs/common": "^10.3.2",
         "@nestjs/core": "^10.3.2",
+        "@nestjs/config": "^3.2.0",
         "@nestjs/platform-express": "^10.3.2",
         "axios": "^1.9.0",
         "cross-env": "^6.0.3",

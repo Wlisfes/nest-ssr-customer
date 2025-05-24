@@ -9,10 +9,7 @@ async function bootstrap() {
     const vite = await createViteServer()
     await app.use(vite.middlewares)
     app.useStaticAssets(resolve(__dirname, '../build/client'), { index: false })
-    await app.listen(5555)
-    console.log(`Nest服务启动:`, `http://localhost:5555`, resolve(__dirname, '../build/client'))
+    await app.listen(process.env.NODE_PORT)
+    console.log(`Nest服务启动[${process.env.NODE_ENV}]:`, `http://localhost:${process.env.NODE_PORT}`)
 }
 bootstrap()
-
-//"vite": "^4.5.14",
-//"@vitejs/plugin-vue": "^4.2.3",

@@ -19,7 +19,7 @@
         "jsx": "preserve",
         "jsxImportSource": "vue",
         "esModuleInterop": true,
-        "typeRoots": ["./node_modules/@types"],
+        "typeRoots": ["./env.d.ts", "./node_modules/@types"],
         "outDir": "dist",
         "paths": {
             "@server/*": ["./server/*"],
