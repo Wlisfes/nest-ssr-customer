@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { defineComponent, computed, h, PropType, VNode, Fragment } from 'vue'
+import { defineComponent, h, PropType, VNode, Fragment } from 'vue'
 import { iconNames } from '@/utils/utils-common'
 
 export default defineComponent({
@@ -12,8 +12,6 @@ export default defineComponent({
         component: { type: Object as PropType<VNode> }
     },
     setup(props, { slots }) {
-        const VNodeCurrent = computed(() => iconNames[String(props.name)])
-
         return () => (
             <n-icon class="element-wrapper">
                 {slots.default ? (
@@ -21,7 +19,7 @@ export default defineComponent({
                 ) : props.component ? (
                     props.component
                 ) : (
-                    <Fragment>{props.name && VNodeCurrent.value && h(VNodeCurrent.value)}</Fragment>
+                    <Fragment>{props.name && iconNames[String(props.name)] && h(iconNames[String(props.name)])}</Fragment>
                 )}
             </n-icon>
         )

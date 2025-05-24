@@ -6,6 +6,7 @@ import Compression from 'vite-plugin-compression'
 import Analyzer from 'rollup-plugin-analyzer'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import Vue from '@vitejs/plugin-vue'
+import SvgLoader from 'vite-svg-loader'
 import UnoCSS from 'unocss/vite'
 
 export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
@@ -17,6 +18,11 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
                 output: [{ format: 'cjs' }, { format: 'es' }]
             }
         },
+        server: {
+            hmr: {
+                port: 25678
+            }
+        },
         resolve: {
             alias: {
                 '~': resolve(__dirname, '../'),
@@ -26,6 +32,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
         plugins: [
             Vue(),
             VueJsx(),
+            SvgLoader({ defaultImport: 'component' }),
             UnoCSS({ mode: 'global' }),
             Analyzer({ summaryOnly: true }),
             Components({

@@ -2,9 +2,6 @@ import { createServer, ViteDevServer } from 'vite'
 import { Request } from 'express'
 import { resolve } from 'path'
 import { readFileSync } from 'fs'
-import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
-import Components from 'unplugin-vue-components/vite'
-import UnoCSS from 'unocss/vite'
 
 let viteServer: ViteDevServer
 export async function createViteServer() {
@@ -19,17 +16,7 @@ export async function createViteServer() {
         },
         build: {
             cssCodeSplit: false
-        },
-        plugins: [
-            UnoCSS(),
-            Components({
-                dts: true,
-                deep: true,
-                extensions: ['vue'],
-                dirs: [resolve(__dirname, '../../web/components')],
-                resolvers: [NaiveUiResolver()]
-            })
-        ]
+        }
     }))
 }
 
