@@ -15,7 +15,9 @@ export default defineComponent({
 
         return () => (
             <div class="layout-home-browse flex flex-col overflow-hidden">
-                <n-h1 class="common-width-inline m-be-0 p-bs-40">Take a look at our core products</n-h1>
+                <n-h2 class="common-width-inline lg:text-28 sm:text-20 xxs:text-16  line-height-34 m-be-0 p-bs-60">
+                    Take a look at our core products
+                </n-h2>
                 <n-carousel class="p-block-16" draggable loop={false} slides-per-view="auto" dot-type="line" space-between={24}>
                     <n-carousel-item style={{ width: state.offset }}></n-carousel-item>
                     {store.browses.map(item => (

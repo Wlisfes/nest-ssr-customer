@@ -19,17 +19,17 @@ export default defineComponent({
                 <layout-home-columns></layout-home-columns>
                 <layout-home-carousel></layout-home-carousel>
                 <layout-home-browse></layout-home-browse>
-                {/* <div class="home flex text-12">Home</div>
-
-                <router-link to="/about">
-                    <n-button>About</n-button>
-                </router-link>
-                <common-wrapper name="nest-logo"></common-wrapper>
-                <div class="flex flex-col gap-24 p-24">
-                    {Array.from({ length: 3 }, (x, i) => (
-                        <n-card>的哈萨克的哈萨克巨大花洒就看到哈桑的撒大大萨达萨达33333333333333</n-card>
-                    ))}
-                </div> */}
+                <layout-home-choose></layout-home-choose>
+                <div class="common-width-inline flex flex-col items-center overflow-hidden p-bs-60 p-be-76">
+                    <n-h1 class="m-0 text-32 line-height-38">Contact our sales team</n-h1>
+                    <n-text class="p-bs-20 p-be-40">
+                        You will get the best and most suitable solution from our experts. Fill out the form and we will contact you within
+                        24 hours.
+                    </n-text>
+                    <n-button size="large" type="primary">
+                        Contact Sales
+                    </n-button>
+                </div>
             </n-element>
         )
     }
