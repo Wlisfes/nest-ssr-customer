@@ -14,14 +14,10 @@ export default defineComponent({
     //     }
     // },
     setup(props) {
-        const store = useHomeStore()
-
-        onMounted(() => {
-            console.log(store.columns)
-        })
-
         return () => (
-            <n-element>
+            <n-element class="flex flex-col flex-1 overflow-hidden">
+                <layout-home-columns></layout-home-columns>
+                <layout-home-carousel></layout-home-carousel>
                 <div class="home flex text-12">Home</div>
 
                 <router-link to="/about">
@@ -33,9 +29,6 @@ export default defineComponent({
                         <n-card>的哈萨克的哈萨克巨大花洒就看到哈桑的撒大大萨达萨达33333333333333</n-card>
                     ))}
                 </div>
-                {/* {userStore.list.map(item => (
-                    <div key={item.keyId}>{item.user.nickname}</div>
-                ))} */}
             </n-element>
         )
     }

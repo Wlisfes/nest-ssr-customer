@@ -7,13 +7,15 @@ export interface HomeStore {
     loading: boolean
     initialize: boolean
     columns: Array<Omix>
+    carousels: Array<Omix>
 }
 
 export const useHomeStore = defineStore('HOME_STORE', () => {
     const { state, setState } = useState<HomeStore>({
         loading: true,
         initialize: true,
-        columns: []
+        columns: [],
+        carousels: []
     })
 
     /**获取一级分类栏目**/
@@ -30,10 +32,24 @@ export const useHomeStore = defineStore('HOME_STORE', () => {
         })
     }
 
+    /**获取轮播数据**/
+    async function fetchBaseCarousels() {
+        return await setState({
+            carousels: [
+                { keyId: 1, name: 'Cloud Gateway', cover: `https://oss.lisfes.cn/cloud/cover/2022-09/1748172093591.jpg` },
+                { keyId: 2, name: 'SMS Gateway', cover: `https://oss.lisfes.cn/cloud/cover/2022-09/1748172093592.jpg` },
+                { keyId: 3, name: 'Voip Gateway', cover: `https://oss.lisfes.cn/cloud/cover/2022-09/1748172093593.jpg` },
+                { keyId: 4, name: 'Proxy Gateway', cover: `https://oss.lisfes.cn/cloud/cover/2022-09/1748172093594.jpg` },
+                { keyId: 5, name: 'SMS Modem', cover: `https://oss.lisfes.cn/cloud/cover/2022-09/1748172093595.jpg` },
+                { keyId: 6, name: 'GOIP Gateway', cover: `https://oss.lisfes.cn/cloud/cover/2022-09/1748172093596.jpg` }
+            ]
+        })
+    }
+
     /**初始化**/
     async function fetchMouseInitialize() {
         try {
-            await Promise.all([fetchBaseColumns()])
+            await Promise.all([fetchBaseColumns(), fetchBaseCarousels()])
             return await setState({ initialize: false, loading: false })
         } catch (err) {
             return await setState({ initialize: false, loading: false })

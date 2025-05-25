@@ -1,3 +1,9 @@
+/**image组件样式穿透**/
+.n-image.elemeent-customize img {
+    width: 100%;
+    display: block;
+}
+
 /**通知提示二次封装**/
 .n-notification-wrapper.custom-notify-service {
     .n-notification__avatar {
