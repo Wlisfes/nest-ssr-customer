@@ -34,23 +34,23 @@ export default defineComponent({
                             <n-h3 strong class="m-0 m-be-8" v-html="Connect"></n-h3>
                             <div class="flex flex-col gap-10 line-height-22">
                                 <div class="flex gap-10 items-center">
-                                    <element-wrapper name="nest-telegram" color="#1296DB" size={24}></element-wrapper>
+                                    <common-wrapper name="nest-telegram" color="#1296DB" size={24}></common-wrapper>
                                     <n-text depth={3}>@SMS_service_all</n-text>
                                 </div>
                                 <div class="flex gap-10 items-center">
-                                    <element-wrapper name="nest-solid-main" size={24}></element-wrapper>
+                                    <common-wrapper name="nest-solid-main" size={24}></common-wrapper>
                                     <n-text depth={3}>service@chinaskyline.com</n-text>
                                 </div>
                                 <div class="flex gap-10 items-center">
-                                    <element-wrapper name="nest-whatsapp" color="#25D366" size={24}></element-wrapper>
+                                    <common-wrapper name="nest-whatsapp" color="#25D366" size={24}></common-wrapper>
                                     <n-text depth={3}>+44 7543144531</n-text>
                                 </div>
                                 <div class="flex gap-10 items-center">
-                                    <element-wrapper name="nest-skype" color="#00ADDF" size={24}></element-wrapper>
+                                    <common-wrapper name="nest-skype" color="#00ADDF" size={24}></common-wrapper>
                                     <n-text depth={3}>live:.cid.91eed7c0aa7c1643</n-text>
                                 </div>
                                 <div class="flex gap-10">
-                                    <element-wrapper name="nest-solid-location" size={24}></element-wrapper>
+                                    <common-wrapper name="nest-solid-location" size={24}></common-wrapper>
                                     <n-text
                                         depth={3}
                                         v-html={`ROOM 837, 8/F, BEVERLEY COMMERCIAL CENTRE, 87-105 CHATHAM ROAD SOUTH, TSIM SHA TSUI KOWLOON HONG KONG`}
@@ -60,21 +60,21 @@ export default defineComponent({
                         </div>
                     </div>
                     <div
-                        class="flex gap-10 md:flex-row xs:flex-col xxs:flex-col items-center justify-between p-bs-16 border-t border-t-solid border-t-[var(--border-color)]"
+                        class="flex items-center gap-10 md:flex-row xs:flex-col xxs:flex-col xs:items-start xxs:items-start justify-between p-bs-16 border-t border-t-solid border-t-[var(--border-color)]"
                         style={{ transition: 'border-top-color 0.3s var(--n-bezier)' }}
                     >
                         <div class="flex items-center gap-10">
                             <n-button text focusable={false}>
-                                <element-wrapper name="nest-facebook" size={28}></element-wrapper>
+                                <common-wrapper name="nest-facebook" size={28}></common-wrapper>
                             </n-button>
                             <n-button text focusable={false}>
-                                <element-wrapper name="nest-linkedin" size={28}></element-wrapper>
+                                <common-wrapper name="nest-linkedin" size={28}></common-wrapper>
                             </n-button>
                             <n-button text focusable={false}>
-                                <element-wrapper name="nest-twitter" size={28}></element-wrapper>
+                                <common-wrapper name="nest-twitter" size={28}></common-wrapper>
                             </n-button>
                             <n-button text focusable={false}>
-                                <element-wrapper name="nest-youtube" size={28}></element-wrapper>
+                                <common-wrapper name="nest-youtube" size={28}></common-wrapper>
                             </n-button>
                         </div>
                         <div class="overflow-hidden">

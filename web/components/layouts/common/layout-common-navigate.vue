@@ -15,7 +15,7 @@ export default defineComponent({
             <n-element class="layout-common-navigate h-48 flex items-center">
                 <router-link to="/" class="flex p-bs-6">
                     <n-button text focusable={false}>
-                        <element-wrapper name="nest-skyline" size={42}></element-wrapper>
+                        <common-wrapper name="nest-skyline" size={42}></common-wrapper>
                     </n-button>
                 </router-link>
                 <div class={`flex-1 sm:p-inline-40 xs:p-inline-20 ${props.elementClass ?? ''}`}>{slots.default && slots.default()}</div>
@@ -30,21 +30,21 @@ export default defineComponent({
                         onClick={() => setState({ theme: state.theme === 'dark' ? 'light' : 'dark' })}
                     >
                         {state.theme === 'dark' ? (
-                            <element-wrapper name="nest-light" size={24}></element-wrapper>
+                            <common-wrapper name="nest-light" size={24}></common-wrapper>
                         ) : (
-                            <element-wrapper name="nest-dark" size={22}></element-wrapper>
+                            <common-wrapper name="nest-dark" size={22}></common-wrapper>
                         )}
                     </n-button>
                     <n-button text focusable={false}>
-                        <element-wrapper name="nest-search" size={24}></element-wrapper>
+                        <common-wrapper name="nest-search" size={24}></common-wrapper>
                     </n-button>
                     <n-button text focusable={false}>
                         <n-badge type="info" offset={[5, 0]} value={40} max={99}>
-                            <element-wrapper name="nest-cart" size={24}></element-wrapper>
+                            <common-wrapper name="nest-cart" size={24}></common-wrapper>
                         </n-badge>
                     </n-button>
                     <n-button text focusable={false}>
-                        <element-wrapper name="nest-user" size={24}></element-wrapper>
+                        <common-wrapper name="nest-user" size={24}></common-wrapper>
                     </n-button>
                 </div>
             </n-element>

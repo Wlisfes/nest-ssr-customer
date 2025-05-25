@@ -24,7 +24,7 @@ export default defineComponent({
                         {state.value}
                     </div>
                     <div class="p-is-8 p-ie-2">{node.value.label}</div>
-                    <element-wrapper name="nest-arrow-switch" size={16}></element-wrapper>
+                    <common-wrapper name="nest-arrow-switch" size={16}></common-wrapper>
                 </div>
             </n-popselect>
         )

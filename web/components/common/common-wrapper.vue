@@ -3,7 +3,7 @@ import { defineComponent, h, PropType, VNode, Fragment } from 'vue'
 import { iconNames } from '@/utils/utils-common'
 
 export default defineComponent({
-    name: 'ElementWrapper',
+    name: 'CommonWrapper',
     emits: ['click'],
     props: {
         /**图标名称**/
@@ -13,7 +13,7 @@ export default defineComponent({
     },
     setup(props, { slots }) {
         return () => (
-            <n-icon class="element-wrapper">
+            <n-icon class="common-wrapper">
                 {slots.default ? (
                     slots.default()
                 ) : props.component ? (

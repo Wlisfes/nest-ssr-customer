@@ -24,11 +24,11 @@ export default defineComponent({
         return () => (
             <n-element>
                 <div class="home flex text-12">Home</div>
-                <common-element>法律框架的顺口溜附件是的大萨达萨大撒大撒达444444444</common-element>
+
                 <router-link to="/about">
                     <n-button>About</n-button>
                 </router-link>
-                <element-wrapper name="nest-logo"></element-wrapper>
+                <common-wrapper name="nest-logo"></common-wrapper>
                 <div class="flex flex-col gap-24 p-24">
                     {Array.from({ length: 3 }, (x, i) => (
                         <n-card>的哈萨克的哈萨克巨大花洒就看到哈桑的撒大大萨达萨达33333333333333</n-card>
