@@ -22,13 +22,7 @@ export default defineComponent({
                     <n-carousel-item style={{ width: state.offset }}></n-carousel-item>
                     {store.browses.map(item => (
                         <n-carousel-item key={item.keyId} class="relative b-rd-4 overflow-hidden">
-                            <n-image
-                                class="w-full h-full elemeent-customize"
-                                object-fit="cover"
-                                preview-disabled
-                                src={item.cover}
-                                alt={item.name}
-                            />
+                            <img class="w-full h-full block object-cover" src={item.cover} alt={item.name} />
                             <div class="absolute inset-0 flex flex-col p-24">
                                 <n-text type="warning">New</n-text>
                                 <n-h2 class="m-block-10 text-24 text-white">

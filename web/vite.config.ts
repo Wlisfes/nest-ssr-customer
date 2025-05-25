@@ -13,7 +13,6 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
     return {
         root: 'web',
         build: {
-            cssCodeSplit: false,
             rollupOptions: {
                 output: [{ format: 'cjs' }, { format: 'es' }]
             }

@@ -12,13 +12,7 @@ export default defineComponent({
                 <n-carousel show-arrow draggable autoplay dot-type="line">
                     {store.carousels.map(item => (
                         <div class="w-full h-full relative" key={item.keyId}>
-                            <n-image
-                                class="w-full h-full elemeent-customize"
-                                object-fit="cover"
-                                preview-disabled
-                                src={item.cover}
-                                alt={item.name}
-                            />
+                            <img class="w-full h-full block object-cover" src={item.cover} alt={item.name} />
                         </div>
                     ))}
                 </n-carousel>

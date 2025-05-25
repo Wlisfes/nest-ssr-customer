@@ -12,10 +12,8 @@ export async function createViteServer() {
         root: 'web',
         logLevel: 'error',
         server: {
+            hmr: true,
             middlewareMode: 'ssr'
-        },
-        build: {
-            cssCodeSplit: false
         }
     }))
 }

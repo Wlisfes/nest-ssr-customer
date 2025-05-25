@@ -15,7 +15,7 @@ export default defineComponent({
                             <n-button class="w-180 h-96 p-block-10" quaternary focusable={false} key={item.keyId}>
                                 <div class="w-full h-full flex flex-col overflow-hidden">
                                     <div class="flex-1 flex flex-col justify-center" style={{ flex: 1, width: '55%', margin: '0 auto' }}>
-                                        <n-image preview-disabled src={item.cover} object-fit="cover" width="100%"></n-image>
+                                        <img class="w-full block object-cover" src={item.cover} alt={item.name} />
                                     </div>
                                     <div class="line-height-20 p-bs-5">{item.name}</div>
                                 </div>
