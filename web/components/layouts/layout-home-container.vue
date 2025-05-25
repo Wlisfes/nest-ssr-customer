@@ -1,13 +1,11 @@
 <script lang="tsx">
 import { defineComponent } from 'vue'
-import GlobalLayouts from '@/layouts/global/index.vue'
 
 export default defineComponent({
-    name: 'HomeLayouts',
-    components: { GlobalLayouts },
+    name: 'LayoutHomeContainer',
     setup(props, ctx) {
         return () => (
-            <global-layouts class="home-layouts" element-class="flex items-center justify-end">
+            <layout-global-container class="layout-home-container" element-class="flex items-center justify-end">
                 <router-link to="/about">
                     <n-h4 strong class="m-0 text-14 hover:underline">
                         About us
@@ -19,7 +17,7 @@ export default defineComponent({
                         SKYLINE 官网
                     </n-h4>
                 </n-a>
-            </global-layouts>
+            </layout-global-container>
         )
     }
 })

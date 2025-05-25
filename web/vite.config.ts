@@ -34,10 +34,10 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
             UnoCSS({ mode: 'global' }),
             Analyzer({ summaryOnly: true }),
             Components({
-                dts: true,
                 deep: true,
                 extensions: ['vue'],
                 dirs: ['./components'],
+                dts: './web.components.d.ts',
                 resolvers: [NaiveUiResolver()]
             }),
             // 构建压缩文件

@@ -2,21 +2,21 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-    name: 'LayoutNavigate',
+    name: 'LayoutCommonNavigate',
     props: {
         /**中部内容class**/
         elementClass: { type: String }
     },
     setup(props, { slots }) {
         return () => (
-            <n-element class="layout-navigate h-48 max-w-large flex items-center">
+            <n-element class="layout-common-navigate h-48 max-w-large flex items-center">
                 <router-link to="/" class="flex p-bs-6">
                     <element-wrapper name="nest-skyline" size={42}></element-wrapper>
                 </router-link>
                 <div class={`flex-1 sm:p-inline-40 xs:p-inline-20 ${props.elementClass ?? ''}`}>{slots.default && slots.default()}</div>
                 <div class="flex items-center sm:gap-28 xs:gap-20">
                     <n-button text focusable={false}>
-                        <layout-language></layout-language>
+                        <layout-common-language></layout-common-language>
                     </n-button>
                     <n-button text focusable={false}>
                         <element-wrapper name="nest-search" size={24}></element-wrapper>
@@ -37,7 +37,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.layout-navigate {
+.layout-common-navigate {
     position: relative;
     .n-badge :deep(.n-badge-sup) {
         --n-font-size: 11px;

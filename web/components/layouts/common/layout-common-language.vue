@@ -4,7 +4,7 @@ import { useState } from '@/hooks/hook-state'
 import { fetchColumnWhere } from '@/utils/utils-common'
 
 export default defineComponent({
-    name: 'LayoutLanguage',
+    name: 'LayoutCommonLanguage',
     setup(props, ctx) {
         const { state, setState } = useState({
             visible: false,

@@ -2,12 +2,12 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-    name: 'GlobalLayouts',
+    name: 'LayoutGlobalContainer',
     setup(props, { slots, attrs }) {
         return () => (
-            <n-layout class="global-layouts h-full overflow-hidden" content-class="flex flex-col overflow-hidden">
+            <n-layout class="layout-global-container h-full overflow-hidden" content-class="flex flex-col overflow-hidden">
                 <n-layout-header>
-                    <layout-navigate element-class={attrs['element-class']}>{slots}</layout-navigate>
+                    <layout-common-navigate element-class={attrs['element-class']}>{slots}</layout-common-navigate>
                 </n-layout-header>
                 <n-layout-content
                     class="flex-1 overflow-hidden"

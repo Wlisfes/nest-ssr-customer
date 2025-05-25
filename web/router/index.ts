@@ -1,6 +1,6 @@
 import { createRouter as _createRouter, createMemoryHistory, createWebHistory } from 'vue-router'
-import HomeLayout from '@/layouts/home/index.vue'
-import BaseLayout from '@/layouts/base/index.vue'
+import LayoutHomeContainer from '@/components/layouts/layout-home-container.vue'
+import LayoutBaseContainer from '@/components/layouts/layout-base-container.vue'
 import Home from '@/views/home/home.vue'
 
 export function createRouter(options: Omix<{ ssr: boolean }>) {
@@ -10,14 +10,14 @@ export function createRouter(options: Omix<{ ssr: boolean }>) {
             {
                 path: '/',
                 redirect: '/',
-                name: 'HomeLayout',
-                component: HomeLayout,
+                name: 'LayoutHomeContainer',
+                component: LayoutHomeContainer,
                 children: [{ path: '/', name: 'Home', meta: { title: '首页', AUTH: 'NONE' }, component: Home }]
             },
             {
                 path: '/',
-                name: 'BaseLayout',
-                component: BaseLayout,
+                name: 'LayoutBaseContainer',
+                component: LayoutBaseContainer,
                 children: [
                     {
                         path: '/about',
