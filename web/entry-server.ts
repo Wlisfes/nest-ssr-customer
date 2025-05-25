@@ -14,9 +14,15 @@ export async function render(request: Request, manifest: Record<string, string[]
     const routeMatched = route.value.matched
     /**更新路由meta信息**/
     const meta = route.value.meta
-    meta.title = meta.title ?? ''
-    meta.keywords = meta.keywords ?? ''
-    meta.description = meta.description ?? ''
+    meta.keywords = meta.keywords ?? process.env.NODE_SEO_KEYWORDS ?? ''
+    meta.description = meta.description ?? process.env.NODE_SEO_DESCRIPTION ?? ''
+    if (meta.title && process.env.NODE_SEO_TITLE) {
+        meta.title = `${process.env.NODE_SEO_TITLE} - ${meta.title}`
+    } else if (process.env.NODE_SEO_TITLE) {
+        meta.title = process.env.NODE_SEO_TITLE
+    } else {
+        meta.title = meta.title ?? ''
+    }
 
     /**获取to路由对应所有的组件**/
     const matchedComponents: any = []
@@ -55,9 +61,13 @@ export async function render(request: Request, manifest: Record<string, string[]
     /**seo赋值: 在页面生成之前、httpServer之后**/
     if (mateCallback) {
         const seo = await mateCallback(config)
-        meta.title = seo.title ? `${seo.title}` : meta.title
         meta.keywords = seo.keywords || meta.keywords
         meta.description = seo.description || meta.description
+        if (seo.title && process.env.NODE_SEO_TITLE) {
+            meta.title = `${process.env.NODE_SEO_TITLE} - ${seo.title}`
+        } else if (seo.title) {
+            meta.title = seo.title
+        }
     }
 
     const renderCtx: { modules?: string[] } = {}

@@ -27,6 +27,12 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
                 '@': resolve(__dirname, './')
             }
         },
+        define: {
+            VITE_SEO_TITLE: JSON.stringify(process.env.NODE_SEO_TITLE),
+            VITE_SEO_SUBTITLE: [`${process.env.NODE_SEO_SUBTITLE}`],
+            VITE_SEO_KEYWORDS: [`${process.env.NODE_SEO_KEYWORDS}`],
+            VITE_SEO_DESCRIPTION: [`${process.env.NODE_SEO_DESCRIPTION}`]
+        },
         plugins: [
             Vue(),
             VueJsx(),
