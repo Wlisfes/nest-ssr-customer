@@ -19,9 +19,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
             }
         },
         server: {
-            hmr: {
-                port: 25678
-            }
+            hmr: true
         },
         resolve: {
             alias: {

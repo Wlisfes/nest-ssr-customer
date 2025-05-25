@@ -9,11 +9,11 @@ export default defineComponent({
         await userStore.fetchBaseColumnContact()
         // console.log(userStore.list)
     },
-    async httpMateServer({ store, route }) {
-        return {
-            title: '大幅拉升贷记卡沙拉蝴蝶卡'
-        }
-    },
+    // async httpMetaServer({ store, route, ctx }) {
+    //     return {
+    //         title: '大苏打33的撒大1111111'
+    //     }
+    // },
     setup(props) {
         const userStore = useUserStore()
 
@@ -24,7 +24,7 @@ export default defineComponent({
         return () => (
             <n-element>
                 <div class="home flex text-12">Home</div>
-                <common-element>法律框架的顺口溜附件是的大萨达萨达</common-element>
+                <common-element>法律框架的顺口溜附件是的大萨达萨大撒大撒达444444444</common-element>
                 <router-link to="/about">
                     <n-button>About</n-button>
                 </router-link>

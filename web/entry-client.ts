@@ -54,7 +54,7 @@ router.beforeResolve(async (to, from, next) => {
 
     /**获取httpServer集合**/
     const httpServerOptions: any = []
-    /**获取httpMateServer,已页面为准最后一个组件**/
+    /**获取httpMetaServer,已页面为准最后一个组件**/
     let mateCallback: any = null
     matchedComponents.map(component => {
         const httpServer = component.httpServer || null
@@ -65,7 +65,7 @@ router.beforeResolve(async (to, from, next) => {
                 httpServerOptions.push(httpServer(config))
             }
         }
-        mateCallback = component.httpMateServer || null
+        mateCallback = component.httpMetaServer || null
     })
 
     /**设置seo函数**/

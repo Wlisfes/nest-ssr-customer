@@ -23,7 +23,7 @@ export interface ContextServerOptions {
 declare module 'vue' {
     interface ComponentCustomOptions {
         httpServer?(context: ContextServerOptions): Promise<any>
-        httpMateServer?(context: ContextServerOptions): MateServerOptions | Promise<MateServerOptions>
+        httpMetaServer?(context: ContextServerOptions): MateServerOptions | Promise<MateServerOptions>
     }
 }
 
