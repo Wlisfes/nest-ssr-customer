@@ -3,20 +3,32 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
     name: 'LayoutNavigate',
-    setup(props, ctx) {
+    props: {
+        /**中部内容class**/
+        elementClass: { type: String }
+    },
+    setup(props, { slots }) {
         return () => (
             <n-element class="layout-navigate h-48 max-w-large flex items-center">
                 <router-link to="/" class="flex p-bs-6">
                     <element-wrapper name="nest-skyline" size={42}></element-wrapper>
                 </router-link>
-                <div class="flex-1 p-inline-40">的撒</div>
-                <div class="flex items-center gap-24">
-                    <layout-language></layout-language>
-                    <element-wrapper name="nest-search" size={24}></element-wrapper>
-                    <n-badge type="info" offset={[5, 0]} value={40} max={99}>
-                        <element-wrapper name="nest-cart" size={24}></element-wrapper>
-                    </n-badge>
-                    <element-wrapper name="nest-user" size={24}></element-wrapper>
+                <div class={`flex-1 sm:p-inline-40 xs:p-inline-20 ${props.elementClass ?? ''}`}>{slots.default && slots.default()}</div>
+                <div class="flex items-center sm:gap-28 xs:gap-20">
+                    <n-button text focusable={false}>
+                        <layout-language></layout-language>
+                    </n-button>
+                    <n-button text focusable={false}>
+                        <element-wrapper name="nest-search" size={24}></element-wrapper>
+                    </n-button>
+                    <n-button text focusable={false}>
+                        <n-badge type="info" offset={[5, 0]} value={40} max={99}>
+                            <element-wrapper name="nest-cart" size={24}></element-wrapper>
+                        </n-badge>
+                    </n-button>
+                    <n-button text focusable={false}>
+                        <element-wrapper name="nest-user" size={24}></element-wrapper>
+                    </n-button>
                 </div>
             </n-element>
         )

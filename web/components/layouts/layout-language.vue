@@ -19,12 +19,12 @@ export default defineComponent({
 
         return () => (
             <n-popselect trigger="click" v-model:value={state.value} options={state.options}>
-                <div class="flex items-center select-none cursor-pointer">
+                <div class="w-98 flex items-center justify-end select-none cursor-pointer">
                     <div class="capitalize text-10 line-height-16 w-16 text-center bg-[var(--icon-color)] text-[var(--base-color)] b-rd-[var(--border-radius)]">
                         {state.value}
                     </div>
-                    <div class="p-inline-8">{node.value.label}</div>
-                    <element-wrapper name="nest-arrow-switch" color="var(--icon-color)" size={18}></element-wrapper>
+                    <div class="p-is-8 p-ie-2">{node.value.label}</div>
+                    <element-wrapper name="nest-arrow-switch" size={16}></element-wrapper>
                 </div>
             </n-popselect>
         )

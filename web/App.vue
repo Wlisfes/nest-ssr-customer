@@ -8,6 +8,7 @@ export default defineComponent({
     setup(props) {
         return () => (
             <n-config-provider abstract inline-theme-disabled locale={zhCN} date-locale={dateZhCN}>
+                <n-global-style />
                 <RouterView></RouterView>
             </n-config-provider>
         )
