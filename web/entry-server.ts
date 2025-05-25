@@ -1,5 +1,3 @@
-import '@unocss/reset/normalize.css'
-import 'uno.css'
 import { renderToString } from 'vue/server-renderer'
 import { Request } from 'express'
 import { isPromise } from '@/utils/is'

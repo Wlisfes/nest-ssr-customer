@@ -10,19 +10,19 @@ export function createRouter(options: Omix<{ ssr: boolean }>) {
                 path: '/',
                 redirect: '/',
                 name: 'BaseLayout',
-                meta: { title: '昆仑服务平台', AUTH: 'AUTH' },
+                meta: { title: '设备商城', AUTH: 'NONE' },
                 component: BaseLayout,
                 children: [
                     {
                         path: '/',
                         name: 'Home',
-                        meta: { title: '首页' },
+                        meta: { title: '首页', AUTH: 'NONE' },
                         component: Home
                     },
                     {
                         path: '/about',
                         name: 'About',
-                        meta: { title: '关于我们' },
+                        meta: { title: '关于我们', AUTH: 'NONE' },
                         component: () => import('@/views/about/about.vue')
                     }
                 ]

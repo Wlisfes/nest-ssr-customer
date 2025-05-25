@@ -6,7 +6,7 @@ export default defineComponent({
     setup(props, ctx) {
         return () => (
             <n-layout class="h-full overflow-hidden" content-class="flex flex-col overflow-hidden">
-                <n-layout-header class="h-50 p-inline-16">
+                <n-layout-header>
                     <layout-navigate></layout-navigate>
                 </n-layout-header>
                 <n-layout-content
@@ -15,7 +15,9 @@ export default defineComponent({
                     native-scrollbar={false}
                     scrollbar-props={{ size: 100, trigger: 'none' }}
                 >
-                    <router-view></router-view>
+                    <n-element class="flex flex-col flex-1">
+                        <router-view></router-view>
+                    </n-element>
                 </n-layout-content>
             </n-layout>
         )

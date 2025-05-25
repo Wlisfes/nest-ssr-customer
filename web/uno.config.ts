@@ -7,5 +7,5 @@ import presetAttributify from '@unocss/preset-attributify'
 export default defineConfig({
     presets: [presetUno(), presetAttributify(), presetTagify(), presetRemToPx({ baseFontSize: 4 })],
     rules: [],
-    shortcuts: []
+    shortcuts: [{ 'max-w-large': 'w-full max-w-1280 m-inline-auto p-inline-24' }]
 })

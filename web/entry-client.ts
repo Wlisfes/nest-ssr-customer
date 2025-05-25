@@ -1,5 +1,3 @@
-import '@unocss/reset/normalize.css'
-import 'uno.css'
 import { isPromise } from '@/utils/is'
 import { createAppServer } from './main'
 const { app, router, store } = createAppServer({ ssr: false })
@@ -81,15 +79,15 @@ router.beforeResolve(async (to, from, next) => {
 
     try {
         /**执行在页面跳转之前httpServer**/
-        Promise.all(httpServerOptions).then(async () => {
+        return Promise.all(httpServerOptions).then(async () => {
             /**设置seo配置**/
             await fetchMateCallback()
-            next()
+            return next()
         })
     } catch (err) {
         /**设置seo配置**/
         await fetchMateCallback()
-        next(err)
+        return next(err)
     }
 })
 

@@ -41,7 +41,6 @@ export interface EntryOptions extends Omix {
 }
 /**ssr渲染内容替换**/
 export async function fetchContentRender(html: string, opts: EntryOptions) {
-    console.log(opts.meta)
     return html
         .replace(`<!--app-ssr-placeholder-->`, opts.content ?? '')
         .replace(`<!--app-ssr-title-->`, opts.meta.title ?? '')

@@ -29,7 +29,9 @@ declare module 'vue' {
 
 declare module 'vue-router' {
     /**扩展meta字段**/
-    interface RouteMeta extends MateServerOptions {}
+    interface RouteMeta extends MateServerOptions {
+        AUTH: 'NONE' | 'AUTH' | 'AUTH_NONE'
+    }
 }
 
 declare module '*.vue' {
