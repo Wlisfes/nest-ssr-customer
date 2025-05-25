@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent } from 'vue'
 import { useHomeStore } from '@/views/home/store/home-store'
 
 export default defineComponent({
@@ -7,13 +7,9 @@ export default defineComponent({
     setup(props) {
         const store = useHomeStore()
 
-        onMounted(() => {
-            console.log(store.columns)
-        })
-
         return () => (
             <div class="layout-home-carousel h-480 overflow-hidden">
-                <n-carousel show-arrow draggable autoplay style={{ '--n-dot-size': '14px' }}>
+                <n-carousel show-arrow draggable autoplay dot-type="line">
                     {store.carousels.map(item => (
                         <div class="w-full h-full relative" key={item.keyId}>
                             <n-image
@@ -31,3 +27,17 @@ export default defineComponent({
     }
 })
 </script>
+
+<style lang="scss" scoped>
+.layout-home-carousel {
+    position: relative;
+    :deep(.n-carousel__dots.n-carousel__dots--line) {
+        --n-dot-line-width: 20px;
+        --n-dot-line-width-active: 40px;
+        bottom: 24px;
+        .n-carousel__dot {
+            height: 8px;
+        }
+    }
+}
+</style>

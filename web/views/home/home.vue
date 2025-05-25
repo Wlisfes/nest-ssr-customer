@@ -18,7 +18,8 @@ export default defineComponent({
             <n-element class="flex flex-col flex-1 overflow-hidden">
                 <layout-home-columns></layout-home-columns>
                 <layout-home-carousel></layout-home-carousel>
-                <div class="home flex text-12">Home</div>
+                <layout-home-browse></layout-home-browse>
+                {/* <div class="home flex text-12">Home</div>
 
                 <router-link to="/about">
                     <n-button>About</n-button>
@@ -28,7 +29,7 @@ export default defineComponent({
                     {Array.from({ length: 3 }, (x, i) => (
                         <n-card>的哈萨克的哈萨克巨大花洒就看到哈桑的撒大大萨达萨达33333333333333</n-card>
                     ))}
-                </div>
+                </div> */}
             </n-element>
         )
     }
