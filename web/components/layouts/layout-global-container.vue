@@ -7,7 +7,9 @@ export default defineComponent({
         return () => (
             <n-layout class="layout-global-container h-full overflow-hidden" content-class="flex flex-col overflow-hidden">
                 <n-layout-header>
-                    <layout-common-navigate element-class={attrs['element-class']}>{slots}</layout-common-navigate>
+                    <layout-common-navigate class="common-width-inline" element-class={attrs['element-class']}>
+                        {slots}
+                    </layout-common-navigate>
                 </n-layout-header>
                 <n-layout-content
                     class="flex-1 overflow-hidden"
@@ -18,6 +20,7 @@ export default defineComponent({
                     <n-element class="flex flex-col flex-1">
                         <router-view></router-view>
                     </n-element>
+                    <layout-common-footer></layout-common-footer>
                 </n-layout-content>
             </n-layout>
         )

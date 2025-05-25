@@ -9,7 +9,7 @@ export default defineComponent({
     },
     setup(props, { slots }) {
         return () => (
-            <n-element class="layout-common-navigate h-48 max-w-large flex items-center">
+            <n-element class="layout-common-navigate h-48 flex items-center">
                 <router-link to="/" class="flex p-bs-6">
                     <element-wrapper name="nest-skyline" size={42}></element-wrapper>
                 </router-link>
