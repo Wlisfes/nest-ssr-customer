@@ -3,11 +3,11 @@ import { Request } from 'express'
 import { isPromise } from '@/utils/is'
 import { createAppServer } from './main'
 
-export async function render(ctx: Request, manifest: Record<string, string[]>) {
+export async function render(request: Request, manifest: Record<string, string[]>) {
     const { app, router, store, collect } = createAppServer({ ssr: true })
 
     /**进入路由页面并等待执行完成**/
-    await router.push(ctx.originalUrl)
+    await router.push(request.originalUrl)
     await router.isReady()
     /**缓存当前路由相关信息**/
     const route = router.currentRoute
@@ -32,7 +32,7 @@ export async function render(ctx: Request, manifest: Record<string, string[]>) {
      * 服务端entry-server.ts中先执行了await router.isReady();，所以router.currentRoute.value的值是to
      * 所以httpServer集合中执行的请求，如果需要当前页面路由参数请用route获取
      */
-    const config = { store: store, route: route.value, router, ctx }
+    const config = { store: store, route: route.value, router, request }
 
     /**获取httpServer集合**/
     const httpServerOptions: any = []

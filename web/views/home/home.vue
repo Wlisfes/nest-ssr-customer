@@ -1,13 +1,12 @@
 <script lang="tsx">
-import { defineComponent, onMounted, VNode } from 'vue'
-import { useUserStore } from '@/store/user'
+import { defineComponent, onMounted } from 'vue'
+import { useHomeStore } from '@/views/home/store/home-store'
 
 export default defineComponent({
     name: 'Home',
-    async httpServer({ store, route }) {
-        const userStore = useUserStore(store)
-        await userStore.fetchBaseColumnContact()
-        // console.log(userStore.list)
+    async httpServer(ctx) {
+        const store = useHomeStore(ctx.store)
+        return await store.fetchMouseInitialize()
     },
     // async httpMetaServer({ store, route, ctx }) {
     //     return {
@@ -15,10 +14,10 @@ export default defineComponent({
     //     }
     // },
     setup(props) {
-        const userStore = useUserStore()
+        const store = useHomeStore()
 
         onMounted(() => {
-            console.log(userStore.list)
+            console.log(store.columns)
         })
 
         return () => (
@@ -34,9 +33,9 @@ export default defineComponent({
                         <n-card>的哈萨克的哈萨克巨大花洒就看到哈桑的撒大大萨达萨达33333333333333</n-card>
                     ))}
                 </div>
-                {userStore.list.map(item => (
+                {/* {userStore.list.map(item => (
                     <div key={item.keyId}>{item.user.nickname}</div>
-                ))}
+                ))} */}
             </n-element>
         )
     }

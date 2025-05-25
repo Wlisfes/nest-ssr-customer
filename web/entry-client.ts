@@ -48,7 +48,7 @@ router.beforeResolve(async (to, from, next) => {
      * 服务端entry-server.ts中先执行了await router.isReady();，所以router.currentRoute.value的值是to
      * 所以httpServer集合中执行的请求，如果需要当前页面路由参数请用route获取
      */
-    const config = { store: store, route: to, router, ctx: undefined }
+    const config = { store: store, route: to, router, request: undefined }
 
     /**获取httpServer集合**/
     const httpServerOptions: any = []

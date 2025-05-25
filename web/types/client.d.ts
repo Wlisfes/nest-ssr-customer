@@ -17,7 +17,7 @@ export interface ContextServerOptions {
     route: RouteLocationNormalizedLoaded
     store: Pinia
     router: Router
-    ctx?: Request
+    request?: Request
 }
 
 declare module 'vue' {
