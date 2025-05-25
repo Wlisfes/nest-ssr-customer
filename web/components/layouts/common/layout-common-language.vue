@@ -20,7 +20,7 @@ export default defineComponent({
         return () => (
             <n-popselect trigger="click" v-model:value={state.value} options={state.options}>
                 <div class="w-98 flex items-center justify-end select-none cursor-pointer">
-                    <div class="capitalize text-10 line-height-16 w-16 text-center bg-[var(--icon-color)] text-[var(--base-color)] b-rd-[var(--border-radius)]">
+                    <div class="capitalize text-10 line-height-16 w-16 text-center text-white bg-transition bg-[var(--icon-color)] b-rd-[var(--border-radius)]">
                         {state.value}
                     </div>
                     <div class="p-is-8 p-ie-2">{node.value.label}</div>

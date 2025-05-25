@@ -1,5 +1,6 @@
 <script lang="tsx">
 import { defineComponent } from 'vue'
+import { useProvider } from '@/hooks/hook-provider'
 
 export default defineComponent({
     name: 'LayoutCommonNavigate',
@@ -8,15 +9,31 @@ export default defineComponent({
         elementClass: { type: String }
     },
     setup(props, { slots }) {
+        const { state, setState, themeStyle } = useProvider()
+
         return () => (
             <n-element class="layout-common-navigate h-48 flex items-center">
                 <router-link to="/" class="flex p-bs-6">
-                    <element-wrapper name="nest-skyline" size={42}></element-wrapper>
+                    <n-button text focusable={false}>
+                        <element-wrapper name="nest-skyline" size={42}></element-wrapper>
+                    </n-button>
                 </router-link>
                 <div class={`flex-1 sm:p-inline-40 xs:p-inline-20 ${props.elementClass ?? ''}`}>{slots.default && slots.default()}</div>
                 <div class="flex items-center sm:gap-28 xs:gap-20">
                     <n-button text focusable={false}>
                         <layout-common-language></layout-common-language>
+                    </n-button>
+                    <n-button
+                        class="w-24 h-24"
+                        text
+                        focusable={false}
+                        onClick={() => setState({ theme: state.theme === 'dark' ? 'light' : 'dark' })}
+                    >
+                        {state.theme === 'dark' ? (
+                            <element-wrapper name="nest-light" size={24}></element-wrapper>
+                        ) : (
+                            <element-wrapper name="nest-dark" size={22}></element-wrapper>
+                        )}
                     </n-button>
                     <n-button text focusable={false}>
                         <element-wrapper name="nest-search" size={24}></element-wrapper>

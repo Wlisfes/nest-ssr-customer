@@ -1,18 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    list-style: none;
-}
-
-html,
-body,
-#app {
-    height: 100%;
-    overflow: hidden;
-}
-
 /**通知提示二次封装**/
 .n-notification-wrapper.custom-notify-service {
     .n-notification__avatar {

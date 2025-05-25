@@ -1,11 +1,21 @@
 <script lang="tsx">
-import { defineComponent } from 'vue'
+import { defineComponent, computed, CSSProperties } from 'vue'
+import { useProvider } from '@/hooks/hook-provider'
 
 export default defineComponent({
     name: 'LayoutGlobalContainer',
     setup(props, { slots, attrs }) {
+        const { theme } = useProvider()
+        const globalStyle = computed<CSSProperties>(() => ({
+            '--element-footer-background-color': theme.value === 'light' ? '#f8f8f8' : 'var(--body-color)'
+        }))
+
         return () => (
-            <n-layout class="layout-global-container h-full overflow-hidden" content-class="flex flex-col overflow-hidden">
+            <n-layout
+                class="layout-global-container h-full overflow-hidden"
+                content-class="flex flex-col overflow-hidden"
+                style={globalStyle.value}
+            >
                 <n-layout-header>
                     <layout-common-navigate class="common-width-inline" element-class={attrs['element-class']}>
                         {slots}

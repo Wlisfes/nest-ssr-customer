@@ -29,9 +29,11 @@ export default defineComponent({
                     <n-button>About</n-button>
                 </router-link>
                 <element-wrapper name="nest-logo"></element-wrapper>
-                {Array.from({ length: 20 }, (x, i) => (
-                    <n-card>的哈萨克的哈萨克巨大花洒就看到哈桑的撒大大萨达萨达33333333333333</n-card>
-                ))}
+                <div class="flex flex-col gap-24 p-24">
+                    {Array.from({ length: 3 }, (x, i) => (
+                        <n-card>的哈萨克的哈萨克巨大花洒就看到哈桑的撒大大萨达萨达33333333333333</n-card>
+                    ))}
+                </div>
                 {userStore.list.map(item => (
                     <div key={item.keyId}>{item.user.nickname}</div>
                 ))}

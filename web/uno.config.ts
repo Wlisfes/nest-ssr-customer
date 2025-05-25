@@ -9,11 +9,10 @@ export default defineConfig({
     theme: {
         breakpoints: { xs: '480px', sm: '640px', md: '768px', lg: '1280px' }
     },
-    rules: [],
-    shortcuts: [
-        {
-            [`common-width-inline`]: 'w-full max-w-1280 m-inline-auto p-inline-24',
-            [`common-border-divider`]: 'border-0 border-solid border-[var(--divider-color)]'
-        }
-    ]
+    rules: [
+        ['border-transition', { transition: 'border-color .3s var(--cubic-bezier-ease-in-out)' }],
+        ['text-transition', { transition: 'color .3s var(--cubic-bezier-ease-in-out)' }],
+        ['bg-transition', { transition: 'background-color 0.3s var(--cubic-bezier-ease-in-out)' }]
+    ],
+    shortcuts: [{ [`common-width-inline`]: 'w-full max-w-1280 m-inline-auto p-inline-24' }]
 })
