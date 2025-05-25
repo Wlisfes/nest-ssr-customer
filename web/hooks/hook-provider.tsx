@@ -1,7 +1,9 @@
 import { useThemeVars, darkTheme, lightTheme, GlobalThemeOverrides, ThemeCommonVars } from 'naive-ui'
 import { toRefs, computed, ComputedRef } from 'vue'
 import { useState } from '@/hooks/hook-state'
-export interface CustomThemeCommonVars extends Omix<ThemeCommonVars> {}
+export interface CustomThemeCommonVars extends Omix<ThemeCommonVars> {
+    '--layout-common-footer-background-color': string
+}
 
 const { state, setState } = useState({
     theme: 'light',
@@ -36,7 +38,7 @@ export function useProvider() {
             primaryColorHover: lightenStr.value,
             primaryColorPressed: lightenStr.value,
             primaryColorSuppl: state.primaryColor,
-            '--common-body-color': '#f8f8f8'
+            '--layout-common-footer-background-color': '#f8f8f8'
         },
         Scrollbar: { width: '6px', height: '6px' },
         Tree: { nodeHeight: '36px' }
@@ -47,7 +49,7 @@ export function useProvider() {
             primaryColorHover: lightenStr.value,
             primaryColorPressed: lightenStr.value,
             primaryColorSuppl: state.primaryColor,
-            '--common-body-color': 'var(--body-color)'
+            '--layout-common-footer-background-color': '#000000'
         },
         Scrollbar: { width: '6px', height: '6px' },
         Tree: { nodeHeight: '36px' }

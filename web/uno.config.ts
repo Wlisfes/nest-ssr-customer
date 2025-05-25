@@ -7,7 +7,7 @@ import presetAttributify from '@unocss/preset-attributify'
 export default defineConfig({
     presets: [presetUno(), presetAttributify(), presetTagify(), presetRemToPx({ baseFontSize: 4 })],
     theme: {
-        breakpoints: { xs: '480px', sm: '640px', md: '768px', lg: '1280px' }
+        breakpoints: { xxs: '240px', xs: '480px', sm: '640px', md: '768px', lg: '1280px' }
     },
     rules: [
         ['border-transition', { transition: 'border-color .3s var(--cubic-bezier-ease-in-out)' }],
