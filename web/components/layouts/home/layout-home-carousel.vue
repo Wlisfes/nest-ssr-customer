@@ -33,5 +33,13 @@ export default defineComponent({
             height: 8px;
         }
     }
+    :deep(.n-carousel__arrow-group) {
+        bottom: 16px;
+        right: 16px;
+        .n-carousel__arrow {
+            width: 32px;
+            height: 32px;
+        }
+    }
 }
 </style>
