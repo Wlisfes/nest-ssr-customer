@@ -10,10 +10,9 @@ export async function createViteServer() {
     }
     return (viteServer = await createServer({
         root: 'web',
-        logLevel: 'error',
+        appType: 'custom',
         server: {
-            hmr: true,
-            middlewareMode: 'ssr'
+            middlewareMode: true
         }
     }))
 }

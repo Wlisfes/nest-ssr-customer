@@ -17,9 +17,6 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
                 output: [{ format: 'cjs' }, { format: 'es' }]
             }
         },
-        server: {
-            hmr: true
-        },
         resolve: {
             alias: {
                 '~': resolve(__dirname, '../'),
