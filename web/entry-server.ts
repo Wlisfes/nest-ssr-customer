@@ -4,7 +4,7 @@ import { isPromise } from '@/utils/is'
 import { createAppServer } from './main'
 
 export async function render(request: Request, manifest: Record<string, string[]>) {
-    const { app, router, store, collect } = createAppServer({ ssr: true })
+    const { app, router, pinia, collect } = createAppServer({ ssr: true })
 
     /**进入路由页面并等待执行完成**/
     await router.push(request.originalUrl)
@@ -38,7 +38,7 @@ export async function render(request: Request, manifest: Record<string, string[]
      * 服务端entry-server.ts中先执行了await router.isReady();，所以router.currentRoute.value的值是to
      * 所以httpServer集合中执行的请求，如果需要当前页面路由参数请用route获取
      */
-    const config = { store: store, route: route.value, router, request }
+    const config = { ssr: true, pinia, route: route.value, router, request }
 
     /**获取httpServer集合**/
     const httpServerOptions: any = []
@@ -73,7 +73,7 @@ export async function render(request: Request, manifest: Record<string, string[]
     const renderCtx: { modules?: string[] } = {}
     const content = await renderToString(app, renderCtx)
     const links = renderPreloadLinks(renderCtx.modules, manifest)
-    const state = JSON.stringify(store.state.value)
+    const state = JSON.stringify(pinia.state.value)
     const css = collect()
 
     return { content, links, meta, state, css }

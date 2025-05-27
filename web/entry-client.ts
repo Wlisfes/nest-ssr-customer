@@ -1,9 +1,9 @@
 import { isPromise } from '@/utils/is'
 import { createAppServer } from './main'
-const { app, router, store } = createAppServer({ ssr: false })
+const { app, router, pinia } = createAppServer({ ssr: false })
 
 if (window.__INITIAL_DATA__) {
-    store.state.value = window.__INITIAL_DATA__
+    pinia.state.value = window.__INITIAL_DATA__
 }
 
 /**置服务器读取ajax数据，且浏览器第一次加载当前页时，不调取ajax数据**/
@@ -49,7 +49,7 @@ router.beforeResolve(async (to, from, next) => {
      * 服务端entry-server.ts中先执行了await router.isReady();，所以router.currentRoute.value的值是to
      * 所以httpServer集合中执行的请求，如果需要当前页面路由参数请用route获取
      */
-    const config = { store: store, route: to, router, request: undefined }
+    const config = { ssr: false, pinia, route: to, router, request: {} }
 
     /**获取httpServer集合**/
     const httpServerOptions: any = []

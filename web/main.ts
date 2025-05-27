@@ -10,11 +10,11 @@ import App from '@/App.vue'
 export function createAppServer(options: Parameters<typeof createRouter>['0']) {
     const app = createSSRApp(App)
     const router = createRouter(options)
-    const store = createPinia()
+    const pinia = createPinia()
     const { collect } = setup(app)
 
     app.use(router)
-    app.use(store)
+    app.use(pinia)
 
-    return { app, router, store, collect }
+    return { app, router, pinia, collect }
 }

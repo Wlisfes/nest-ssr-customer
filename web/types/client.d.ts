@@ -15,7 +15,7 @@ export interface MateServerOptions extends Omix {
 /**服务端异步获取数据上下文**/
 export interface ContextServerOptions {
     route: RouteLocationNormalizedLoaded
-    store: Pinia
+    pinia: Pinia
     router: Router
     request?: Request
 }
