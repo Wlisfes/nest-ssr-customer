@@ -1,6 +1,7 @@
 import { Request } from 'express'
 import Cookies from 'universal-cookie'
 
+export { Cookies }
 export interface ICookieOptions {}
 export class UniversalCookie {
     private cookies: Cookies

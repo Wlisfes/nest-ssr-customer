@@ -22,7 +22,6 @@ export const useHomeStore = defineStore('HOME_STORE', () => {
 
     /**获取一级分类栏目**/
     async function fetchBaseColumns() {
-        await fetchDelay(1000)
         return await setState({
             columns: [
                 { keyId: 1, name: 'Cloud Gateway', cover: imageNames['cloud-gateway'] },
@@ -37,7 +36,6 @@ export const useHomeStore = defineStore('HOME_STORE', () => {
 
     /**获取轮播数据**/
     async function fetchBaseCarousels() {
-        await fetchDelay(1000)
         return await setState({
             carousels: [
                 { keyId: 1, name: 'Cloud Gateway', cover: `https://oss.lisfes.cn/cloud/cover/2022-09/1748172093591.jpg` },
@@ -52,7 +50,6 @@ export const useHomeStore = defineStore('HOME_STORE', () => {
 
     /**核心产品数据**/
     async function fetchBaseBrowses() {
-        await fetchDelay(1000)
         return await setState({
             browses: [
                 {
