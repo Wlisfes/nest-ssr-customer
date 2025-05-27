@@ -24,10 +24,12 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
             }
         },
         define: {
-            VITE_SEO_TITLE: JSON.stringify(process.env.NODE_SEO_TITLE),
-            VITE_SEO_SUBTITLE: [`${process.env.NODE_SEO_SUBTITLE}`],
-            VITE_SEO_KEYWORDS: [`${process.env.NODE_SEO_KEYWORDS}`],
-            VITE_SEO_DESCRIPTION: [`${process.env.NODE_SEO_DESCRIPTION}`]
+            ['import.meta.env.NODE_ENV']: JSON.stringify(process.env.NODE_ENV),
+            ['import.meta.env.NODE_PORT']: JSON.stringify(process.env.NODE_PORT),
+            ['import.meta.env.NODE_SEO_TITLE']: JSON.stringify(process.env.NODE_SEO_TITLE),
+            ['import.meta.env.NODE_SEO_SUBTITLE']: JSON.stringify(process.env.NODE_SEO_SUBTITLE),
+            ['import.meta.env.NODE_SEO_KEYWORDS']: JSON.stringify(process.env.NODE_SEO_KEYWORDS),
+            ['import.meta.env.NODE_SEO_DESCRIPTION']: JSON.stringify(process.env.NODE_SEO_DESCRIPTION)
         },
         plugins: [
             Vue(),

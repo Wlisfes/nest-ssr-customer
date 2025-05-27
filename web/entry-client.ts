@@ -20,7 +20,6 @@ router.beforeResolve(async (to, from, next) => {
     meta.title = meta.title ?? ''
     meta.keywords = meta.keywords ?? ''
     meta.description = meta.description ?? ''
-    console.log(import.meta.env)
 
     /**判断是否在当前路由跳转，activated如果是空说明是当前路由来回跳转**/
     let diffed = false
@@ -49,7 +48,7 @@ router.beforeResolve(async (to, from, next) => {
      * 服务端entry-server.ts中先执行了await router.isReady();，所以router.currentRoute.value的值是to
      * 所以httpServer集合中执行的请求，如果需要当前页面路由参数请用route获取
      */
-    const config = { ssr: false, pinia, route: to, router, request: {} }
+    const config = { pinia, route: to, router, request: {}, env: import.meta.env }
 
     /**获取httpServer集合**/
     const httpServerOptions: any = []

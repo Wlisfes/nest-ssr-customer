@@ -6,7 +6,7 @@ import Cookies from 'universal-cookie'
 
 export default defineComponent({
     name: 'Home',
-    async httpServer({ pinia, request }) {
+    async httpServer({ env, pinia, request }) {
         // console.log(new Cookies(request.headers.cookie).get('APP_NEST_TOKEN'))
         // const cookies = new Cookies(ctx.request?.headers, { path: '/' });
         const store = useHomeStore(pinia)

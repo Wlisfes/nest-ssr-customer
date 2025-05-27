@@ -19,7 +19,8 @@ export interface ContextServerOptions {
     route: RouteLocationNormalizedLoaded
     pinia: Pinia
     router: Router
-    request?: Request
+    request: Request
+    env: EnvOptions & ImportMeta['env']
 }
 
 declare interface AxiosRequest extends AxiosInstance {
