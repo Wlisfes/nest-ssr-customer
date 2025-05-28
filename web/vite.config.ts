@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { defineConfig, ConfigEnv, UserConfig } from 'vite'
+import { defineConfig, loadEnv, ConfigEnv, UserConfig } from 'vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import Compression from 'vite-plugin-compression'
@@ -8,10 +8,15 @@ import VueJsx from '@vitejs/plugin-vue-jsx'
 import Vue from '@vitejs/plugin-vue'
 import SvgLoader from 'vite-svg-loader'
 import UnoCSS from 'unocss/vite'
+import dotenv from 'dotenv'
 
 export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
+    const env = dotenv.config({ path: resolve(process.cwd(), `.env.${mode}`) }).parsed ?? {}
+    const json = Object.keys(env).reduce((s, key) => ({ ...s, [`import.meta.env.${key}`]: JSON.stringify(env[key]) }), {})
+
     return {
         root: 'web',
+        define: json,
         build: {
             rollupOptions: {
                 output: [{ format: 'cjs' }, { format: 'es' }]
@@ -22,14 +27,6 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
                 '~': resolve(__dirname, '../'),
                 '@': resolve(__dirname, './')
             }
-        },
-        define: {
-            ['import.meta.env.NODE_ENV']: JSON.stringify(process.env.NODE_ENV),
-            ['import.meta.env.NODE_PORT']: JSON.stringify(process.env.NODE_PORT),
-            ['import.meta.env.NODE_SEO_TITLE']: JSON.stringify(process.env.NODE_SEO_TITLE),
-            ['import.meta.env.NODE_SEO_SUBTITLE']: JSON.stringify(process.env.NODE_SEO_SUBTITLE),
-            ['import.meta.env.NODE_SEO_KEYWORDS']: JSON.stringify(process.env.NODE_SEO_KEYWORDS),
-            ['import.meta.env.NODE_SEO_DESCRIPTION']: JSON.stringify(process.env.NODE_SEO_DESCRIPTION)
         },
         plugins: [
             Vue(),
