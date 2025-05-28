@@ -10,6 +10,16 @@ export function createRouter(options: Omix<{ ssr: boolean }>) {
         routes: [
             {
                 path: '/',
+                redirect: '/',
+                name: 'LayoutHomeContainer',
+                component: LayoutHomeContainer,
+                children: [
+                    { path: '/', name: 'Home', meta: { AUTH: 'NONE' }, component: Home },
+                    { path: '/:pathMatch(.*)*', name: 'Not', meta: { AUTH: 'NONE' }, component: Not }
+                ]
+            },
+            {
+                path: '/',
                 name: 'LayoutBaseContainer',
                 component: LayoutBaseContainer,
                 children: [
@@ -19,16 +29,6 @@ export function createRouter(options: Omix<{ ssr: boolean }>) {
                         meta: { title: '关于我们', AUTH: 'NONE' },
                         component: () => import('@/views/about/about.vue')
                     }
-                ]
-            },
-            {
-                path: '/',
-                redirect: '/',
-                name: 'LayoutHomeContainer',
-                component: LayoutHomeContainer,
-                children: [
-                    { path: '/', name: 'Home', meta: { AUTH: 'NONE' }, component: Home },
-                    { path: '/:pathMatch(.*)*', name: 'Not', meta: { AUTH: 'NONE' }, component: Not }
                 ]
             }
         ]
