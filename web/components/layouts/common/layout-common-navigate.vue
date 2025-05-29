@@ -1,6 +1,6 @@
 <script lang="tsx">
 import { defineComponent } from 'vue'
-import { useBaseStore, useStore } from '@/store'
+import { useStore, useMouse } from '@/store'
 
 export default defineComponent({
     name: 'LayoutCommonNavigate',
@@ -9,7 +9,7 @@ export default defineComponent({
         elementClass: { type: String }
     },
     setup(props, { slots }) {
-        const { theme, fetchThemeUpdate } = useStore(useBaseStore)
+        const { theme, fetchThemeUpdate } = useMouse(useStore)
 
         return () => (
             <n-element class="layout-common-navigate h-48 flex items-center">

@@ -21,8 +21,8 @@ export default defineComponent({
         const { state, setState } = useState({ token: `` })
 
         async function fetchUpdateCookie() {
-            console.log(state)
-            return new Cookies().set('APP_NEST_TOKEN', state.token, { maxAge: 7200 })
+            new Cookies().set('APP_NEST_TOKEN', state.token, { maxAge: 7200 })
+            console.log(new Cookies().get('APP_NEST_TOKEN'))
         }
 
         return () => (
