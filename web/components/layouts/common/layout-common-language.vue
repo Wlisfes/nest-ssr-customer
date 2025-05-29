@@ -1,7 +1,6 @@
 <script lang="tsx">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, nextTick } from 'vue'
 import { useState } from '@/hooks/hook-state'
-import { fetchColumnWhere } from '@/utils/utils-common'
 
 export default defineComponent({
     name: 'LayoutCommonLanguage',
@@ -15,18 +14,39 @@ export default defineComponent({
             ]
         })
 
-        const node = computed(() => fetchColumnWhere(state.options, state.value))
+        async function fetchUpdate(data: Omix) {
+            return await setState({ visible: false }).then(async () => {
+                await nextTick()
+
+                return await setState({ value: data.value })
+            })
+        }
 
         return () => (
-            <n-popselect trigger="click" v-model:value={state.value} options={state.options}>
-                <div class="w-98 flex items-center justify-end select-none cursor-pointer">
-                    <div class="capitalize text-10 line-height-16 w-16 text-center text-white bg-transition bg-[var(--icon-color)] b-rd-[var(--border-radius)]">
-                        {state.value}
-                    </div>
-                    <div class="p-is-8 p-ie-2">{node.value.label}</div>
-                    <common-wrapper name="nest-arrow-switch" size={16}></common-wrapper>
-                </div>
-            </n-popselect>
+            <n-popover trigger="click" v-model:show={state.visible} style={{ padding: '8px' }}>
+                {{
+                    trigger: () => (
+                        <div class="flex items-center justify-end select-none cursor-pointer">
+                            <common-wrapper name="nest-i18n" size={24}></common-wrapper>
+                        </div>
+                    ),
+                    default: () => (
+                        <div class="flex flex-col">
+                            {state.options.map(item => (
+                                <n-button
+                                    key={item.value}
+                                    quaternary
+                                    class="p-inline-8"
+                                    type={state.value === item.value ? 'primary' : undefined}
+                                    onClick={() => fetchUpdate(item)}
+                                >
+                                    <div class="w-60 flex items-center justify-between overflow-hidden">{item.label}</div>
+                                </n-button>
+                            ))}
+                        </div>
+                    )
+                }}
+            </n-popover>
         )
     }
 })

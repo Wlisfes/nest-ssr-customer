@@ -6,7 +6,7 @@ export default defineComponent({
     setup(props, ctx) {
         return () => (
             <layout-global-container class="layout-home-container" element-class="flex items-center justify-end">
-                <router-link to="/about">
+                {/* <router-link to="/about">
                     <n-h4 strong class="m-0 text-14 hover:underline">
                         About us
                     </n-h4>
@@ -16,7 +16,7 @@ export default defineComponent({
                     <n-h4 strong class="m-0 text-14 hover:underline">
                         SKYLINE 官网
                     </n-h4>
-                </n-a>
+                </n-a> */}
             </layout-global-container>
         )
     }

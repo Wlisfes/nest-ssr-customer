@@ -1,6 +1,6 @@
 <script lang="tsx">
 import { defineComponent } from 'vue'
-import { useProvider } from '@/hooks/hook-provider'
+import { useBaseStore, useStore } from '@/store'
 
 export default defineComponent({
     name: 'LayoutCommonNavigate',
@@ -9,32 +9,18 @@ export default defineComponent({
         elementClass: { type: String }
     },
     setup(props, { slots }) {
-        const { state, setState, themeStyle } = useProvider()
+        const { theme, fetchThemeUpdate } = useStore(useBaseStore)
 
         return () => (
             <n-element class="layout-common-navigate h-48 flex items-center">
-                <router-link to="/" class="flex p-bs-6">
+                <router-link to="/" class="flex">
                     <n-button text focusable={false}>
-                        <common-wrapper name="nest-skyline" size={42}></common-wrapper>
+                        <common-wrapper name="nest-logo" size={42}></common-wrapper>
+                        <div class="text-20 line-height-20 p-is-5 p-bs-1 font-600">Nuxt</div>
                     </n-button>
                 </router-link>
                 <div class={`flex-1 sm:p-inline-40 xs:p-inline-20 ${props.elementClass ?? ''}`}>{slots.default && slots.default()}</div>
-                <div class="flex items-center sm:gap-28 xs:gap-20">
-                    <n-button text focusable={false}>
-                        <layout-common-language></layout-common-language>
-                    </n-button>
-                    <n-button
-                        class="w-24 h-24"
-                        text
-                        focusable={false}
-                        onClick={() => setState({ theme: state.theme === 'dark' ? 'light' : 'dark' })}
-                    >
-                        {state.theme === 'dark' ? (
-                            <common-wrapper name="nest-light" size={24}></common-wrapper>
-                        ) : (
-                            <common-wrapper name="nest-dark" size={22}></common-wrapper>
-                        )}
-                    </n-button>
+                <div class="flex items-center gap-28">
                     <n-button text focusable={false}>
                         <common-wrapper name="nest-search" size={24}></common-wrapper>
                     </n-button>
@@ -45,6 +31,21 @@ export default defineComponent({
                     </n-button>
                     <n-button text focusable={false}>
                         <common-wrapper name="nest-user" size={24}></common-wrapper>
+                    </n-button>
+                </div>
+                <n-divider vertical class="h-20! m-inline-20!" />
+                <div class="flex items-center gap-20 overflow-hidden">
+                    <n-button text focusable={false}>
+                        <layout-common-language></layout-common-language>
+                    </n-button>
+                    <n-button text focusable={false} onClick={() => fetchThemeUpdate()}>
+                        <div class="w-24 flex justify-center items-center">
+                            {theme.value === 'dark' ? (
+                                <common-wrapper name="nest-light" size={24}></common-wrapper>
+                            ) : (
+                                <common-wrapper name="nest-dark" size={22}></common-wrapper>
+                            )}
+                        </div>
                     </n-button>
                 </div>
             </n-element>
