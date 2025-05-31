@@ -1,0 +1,19 @@
+import { ref } from 'vue'
+import { Request } from 'express'
+import Cookies, { CookieSetOptions } from 'universal-cookie'
+export const ctx = ref<Request>({} as Request)
+
+export enum AUTH {
+    /**主题存储**/
+    APP_NEST_THEME = 'APP_NEST_THEME',
+    /**主题色存储**/
+    APP_NEST_PRIMARY_COLOR = 'APP_NEST_PRIMARY_COLOR',
+    /**token存储**/
+    APP_NEST_TOKEN = 'APP_NEST_TOKEN'
+}
+
+export function useCoutext(options: CookieSetOptions = {}) {
+    const cookies = new Cookies(ctx.value.headers?.cookie, options)
+
+    return { ctx, cookies, AUTH }
+}

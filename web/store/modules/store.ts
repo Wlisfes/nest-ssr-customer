@@ -1,15 +1,15 @@
 import { useThemeVars, darkTheme, lightTheme } from 'naive-ui'
 import { defineStore } from 'pinia'
 import { themeOverrides } from '@/utils/utils-theme'
-import cookies, { Cookies, AUTH } from '@/utils/utils-cookie'
+import { useCoutext, AUTH } from '@/hooks/hook-context'
 
+const { ctx, cookies } = useCoutext()
 export const useStore = defineStore('APP_NEST_STORE', {
     state: () => {
-        // const cookies = new Cookies()
-        console.log(new Cookies().get(AUTH.APP_NEST_THEME))
+        console.log(cookies.get(AUTH.APP_NEST_THEME))
         return {
             /**主题**/
-            theme: new Cookies().get(AUTH.APP_NEST_THEME) ?? 'light',
+            theme: cookies.get(AUTH.APP_NEST_THEME) ?? 'light',
             /**主题色**/
             primaryColor: cookies.get(AUTH.APP_NEST_PRIMARY_COLOR) ?? '#536dfe'
         }
@@ -26,9 +26,9 @@ export const useStore = defineStore('APP_NEST_STORE', {
     actions: {
         async fetchThemeUpdate(theme?: 'light' | 'dark') {
             // await cookies.set(AUTH.APP_NEST_THEME, theme, { maxAge: 31536000000 })
-            console.log(new Cookies().get(AUTH.APP_NEST_THEME))
+            // console.log(new Cookies().get(AUTH.APP_NEST_THEME))
             await (this.theme = theme ?? (this.theme === 'light' ? 'dark' : 'light'))
-            new Cookies().set(AUTH.APP_NEST_THEME, this.theme, { maxAge: 7200 })
+            return cookies.set(AUTH.APP_NEST_THEME, this.theme, { maxAge: 7200 })
         }
     }
 })

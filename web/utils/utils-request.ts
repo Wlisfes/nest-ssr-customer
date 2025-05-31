@@ -1,5 +1,4 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig, AxiosInstance, AxiosRequestConfig } from 'axios'
-// import { getToken } from '@/utils/utils-cookie'
 
 export declare interface AxiosRequest extends AxiosInstance {
     <T = any, R = AxiosResponse<T>, D = any>(config: AxiosRequestConfig<D>): Promise<R & Omix<T>>

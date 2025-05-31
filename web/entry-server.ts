@@ -1,10 +1,10 @@
 import { renderToString } from 'vue/server-renderer'
 import { Request } from 'express'
 import { isPromise } from '@/utils/is'
-import { createAppServer } from './main'
+import { createAppServer } from '@/main'
 
 export async function render(request: Request, manifest: Record<string, string[]>) {
-    const { app, router, pinia, collect } = createAppServer({ ssr: true })
+    const { app, router, pinia, collect } = createAppServer({ request, ssr: true })
 
     /**进入路由页面并等待执行完成**/
     await router.push(request.originalUrl)
