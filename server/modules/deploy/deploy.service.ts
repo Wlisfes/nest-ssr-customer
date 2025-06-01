@@ -5,7 +5,7 @@ import { Logger, AutoDescriptor } from '@server/modules/logger/logger.service'
 export class DeployService extends Logger {
     /**商品分类**/
     @AutoDescriptor
-    public async httpBaseDeployColumnChunk() {
+    public async httpBaseDeployChunkColumn() {
         return await this.fetchResolver({
             list: []
         })
