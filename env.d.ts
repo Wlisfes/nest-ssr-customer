@@ -1,6 +1,18 @@
 /**通用对象**/
 declare type Omix<T = Record<string, any>> = T & Record<string, any>
 
+/**获取Promise返回的类型**/
+declare type PromiseType<T extends Promise<any>> = T extends Promise<infer R> ? R : never
+
+/**OmixResult输出类型**/
+declare interface OmixResult<T> extends Omix {
+    message: string
+    list: Array<Omix<T>>
+    total: number
+    page: number
+    size: number
+}
+
 declare interface Window {
     /**store数据类型**/
     __INITIAL_DATA__: Omix
