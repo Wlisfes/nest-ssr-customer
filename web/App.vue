@@ -2,12 +2,12 @@
 import { defineComponent } from 'vue'
 import { RouterView } from 'vue-router'
 import { dateZhCN, zhCN } from 'naive-ui'
-import { useStore, useMouse } from '@/store'
+import { useMouse, useStore } from '@/store'
 
 export default defineComponent({
     name: 'App',
     setup(props) {
-        const { themeStyle, themeOverrides } = useMouse(useStore)
+        const { themeStyle, themeOverrides } = useStore(useMouse)
 
         return () => (
             <n-config-provider

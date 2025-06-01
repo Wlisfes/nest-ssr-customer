@@ -12,7 +12,7 @@ export enum AUTH {
     APP_NEST_TOKEN = 'APP_NEST_TOKEN'
 }
 
-export function useCoutext(options: CookieSetOptions = {}) {
+export function useCoutext(options: CookieSetOptions = { maxAge: 30 * 24 * 60 * 60 }) {
     const cookies = new Cookies(ctx.value.headers?.cookie, options)
 
     return { ctx, cookies, AUTH }
