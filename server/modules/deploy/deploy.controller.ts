@@ -1,5 +1,4 @@
-// import { WithController } from '@server/decorator/with.decorator'
-import { Controller, Get, Header, Request } from '@nestjs/common'
+import { WithController } from '@server/decorator/with.decorator'
 
-@Controller('deploy')
+@WithController('deploy')
 export class DeployController {}
