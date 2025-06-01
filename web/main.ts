@@ -3,9 +3,10 @@ import '@/styles/index.scss'
 import 'uno.css'
 import { Request } from 'express'
 import { createSSRApp } from 'vue'
-import { createRouter } from '@/router'
 import { createPinia } from 'pinia'
+import { createRouter } from '@/router'
 import { CoutextServer } from '@/plugins'
+import { i18n } from '@/i18n'
 import { setup } from '@css-render/vue3-ssr'
 import App from '@/App.vue'
 
@@ -23,6 +24,7 @@ export function createAppServer(options: AppServerOptions) {
     app.use(CoutextServer(options.ssr, options.request))
     app.use(router)
     app.use(pinia)
+    app.use(i18n)
 
     return { app, router, pinia, collect }
 }

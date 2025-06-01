@@ -8,6 +8,8 @@ export enum AUTH {
     APP_NEST_THEME = 'APP_NEST_THEME',
     /**主题色存储**/
     APP_NEST_PRIMARY_COLOR = 'APP_NEST_PRIMARY_COLOR',
+    /**语言存储存**/
+    APP_NEST_LOCALE = 'APP_NEST_LOCALE',
     /**token存储**/
     APP_NEST_TOKEN = 'APP_NEST_TOKEN'
 }

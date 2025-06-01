@@ -447,6 +447,27 @@
     local-pkg "^1.0.0"
     mlly "^1.7.4"
 
+"@intlify/core-base@11.1.5":
+  version "11.1.5"
+  resolved "https://registry.npmmirror.com/@intlify/core-base/-/core-base-11.1.5.tgz#4ea7c7d89e12283b2046f51f90a4e90fc2fde07d"
+  integrity sha512-xGRkISwV/2Trqb8yVQevlHm5roaQqy+75qwUzEQrviaQF0o4c5VDhjBW7WEGEoKFx09HSgq7NkvK/DAyuerTDg==
+  dependencies:
+    "@intlify/message-compiler" "11.1.5"
+    "@intlify/shared" "11.1.5"
+
+"@intlify/message-compiler@11.1.5":
+  version "11.1.5"
+  resolved "https://registry.npmmirror.com/@intlify/message-compiler/-/message-compiler-11.1.5.tgz#3ce479be964efa5615d11fe08a615e051f4060ec"
+  integrity sha512-YLSBbjD7qUdShe3ZAat9Hnf9E8FRpN6qmNFD/x5Xg5JVXjsks0kJ90Zj6aAuyoppJQA/YJdWZ8/bB7k3dg2TjQ==
+  dependencies:
+    "@intlify/shared" "11.1.5"
+    source-map-js "^1.0.2"
+
+"@intlify/shared@11.1.5":
+  version "11.1.5"
+  resolved "https://registry.npmmirror.com/@intlify/shared/-/shared-11.1.5.tgz#236eb0b2b01876f7b540ddb4079e2027cfc83d63"
+  integrity sha512-+I4vRzHm38VjLr/CAciEPJhGYFzWWW4HMTm+6H3WqknXLh0ozNX9oC8ogMUwTSXYR/wGUb1/lTpNziiCH5MybQ==
+
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
   resolved "https://registry.npmmirror.com/@isaacs/cliui/-/cliui-8.0.2.tgz#b37667b7bc181c168782259bab42474fbf52b550"
@@ -1317,7 +1338,7 @@
     "@vue/compiler-dom" "3.5.14"
     "@vue/shared" "3.5.14"
 
-"@vue/devtools-api@^6.6.4":
+"@vue/devtools-api@^6.5.0", "@vue/devtools-api@^6.6.4":
   version "6.6.4"
   resolved "https://registry.npmmirror.com/@vue/devtools-api/-/devtools-api-6.6.4.tgz#cbe97fe0162b365edc1dba80e173f90492535343"
   integrity sha512-sGhTPMuXqZ1rVOk32RylztWkfXTRhuS7vgAKv0zjqk8gbsHkJ7xfFf+jbySxt7tWObEJwyKaHMikV/WGDiQm8g==
@@ -4330,7 +4351,7 @@ sort-keys@^1.0.0:
   dependencies:
     is-plain-obj "^1.0.0"
 
-"source-map-js@>=0.6.2 <2.0.0", source-map-js@^1.0.1, source-map-js@^1.2.1:
+"source-map-js@>=0.6.2 <2.0.0", source-map-js@^1.0.1, source-map-js@^1.0.2, source-map-js@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmmirror.com/source-map-js/-/source-map-js-1.2.1.tgz#1ce5650fddd87abc099eda37dcff024c2667ae46"
   integrity sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==
@@ -4867,6 +4888,15 @@ vooks@^0.2.12, vooks@^0.2.4:
   integrity sha512-iox0I3RZzxtKlcgYaStQYKEzWWGAduMmq+jS7OrNdQo1FgGfPMubGL3uGHOU9n97NIvfFDBGnpSvkWyb/NSn/Q==
   dependencies:
     evtd "^0.2.2"
+
+vue-i18n@^11.1.5:
+  version "11.1.5"
+  resolved "https://registry.npmmirror.com/vue-i18n/-/vue-i18n-11.1.5.tgz#34e8bcd4df709e488b0ff12d500ff0bdb75bec0d"
+  integrity sha512-XCwuaEA5AF97g1frvH/EI1zI9uo1XKTf2/OCFgts7NvUWRsjlgeHPrkJV+a3gpzai2pC4quZ4AnOHFO8QK9hsg==
+  dependencies:
+    "@intlify/core-base" "11.1.5"
+    "@intlify/shared" "11.1.5"
+    "@vue/devtools-api" "^6.5.0"
 
 vue-router@^4.5.1:
   version "4.5.1"
