@@ -1,6 +1,7 @@
 <script lang="tsx">
 import { defineComponent, nextTick } from 'vue'
 import { useState } from '@/hooks/hook-state'
+import { locale, fetchI18nUpdate } from '@/i18n'
 
 export default defineComponent({
     name: 'LayoutCommonLanguage',
@@ -17,8 +18,8 @@ export default defineComponent({
         async function fetchUpdate(data: Omix) {
             return await setState({ visible: false }).then(async () => {
                 await nextTick()
-
-                return await setState({ value: data.value })
+                await fetchI18nUpdate(data.value)
+                // return await setState({ value: data.value })
             })
         }
 
@@ -37,7 +38,7 @@ export default defineComponent({
                                     key={item.value}
                                     quaternary
                                     class="p-inline-8"
-                                    type={state.value === item.value ? 'primary' : undefined}
+                                    type={locale.value === item.value ? 'primary' : undefined}
                                     onClick={() => fetchUpdate(item)}
                                 >
                                     <div class="w-60 flex items-center justify-between overflow-hidden">{item.label}</div>
