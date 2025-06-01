@@ -1,14 +1,10 @@
 <script lang="tsx">
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent } from 'vue'
 import { useHomeStore } from '@/views/home/store/home-store'
-import { useState } from '@/hooks/hook-state'
-import Cookies from 'universal-cookie'
 
 export default defineComponent({
     name: 'Home',
-    async httpServer({ env, pinia, request }) {
-        // console.log(new Cookies(request.headers.cookie).get('APP_NEST_TOKEN'))
-        // const cookies = new Cookies(ctx.request?.headers, { path: '/' });
+    async httpServer({ pinia }) {
         const store = useHomeStore(pinia)
         return await store.fetchMouseInitialize()
     },
@@ -18,24 +14,9 @@ export default defineComponent({
     //     }
     // },
     setup(props) {
-        const { state, setState } = useState({ token: `` })
-
-        async function fetchUpdateCookie() {
-            new Cookies().set('APP_NEST_TOKEN', state.token, { maxAge: 7200 })
-            console.log(new Cookies().get('APP_NEST_TOKEN'))
-        }
-
         return () => (
             <n-element class="flex flex-col flex-1 overflow-hidden">
                 <layout-home-columns></layout-home-columns>
-                <div class="common-width-inline flex flex-col gap-10 p-20 overflow-hidden">
-                    <n-input v-model:value={state.token} type="textarea" placeholder="token" />
-                    <div class="flex">
-                        <n-button type="primary" onClick={fetchUpdateCookie}>
-                            保存
-                        </n-button>
-                    </div>
-                </div>
                 <layout-home-carousel></layout-home-carousel>
                 <layout-home-browse></layout-home-browse>
                 <layout-home-choose></layout-home-choose>
