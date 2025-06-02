@@ -10,7 +10,7 @@ export default defineComponent({
         return () => (
             <div class="layout-home-columns common-width-inline">
                 <n-scrollbar x-scrollable scrollbar-props={{ size: 100, trigger: 'none' }}>
-                    <div class="flex items-center whitespace-nowrap gap-10 p-bs-10 p-be-16">
+                    <div class="flex items-center whitespace-nowrap gap-10 p-block-16">
                         <router-link to="/">
                             <n-button class="h-80 p-10" secondary focusable={false}>
                                 <div class="w-full h-full flex flex-col overflow-hidden">

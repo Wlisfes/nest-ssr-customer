@@ -8,14 +8,17 @@ export default defineComponent({
         const store = useHomeStore()
 
         return () => (
-            <div class="layout-home-carousel h-480 overflow-hidden">
-                <n-carousel show-arrow draggable autoplay dot-type="line">
-                    {store.carousels.map(item => (
-                        <div class="w-full h-full relative" key={item.keyId}>
-                            <img class="w-full h-full block object-cover" loading="lazy" src={item.cover} alt={item.name} />
-                        </div>
-                    ))}
-                </n-carousel>
+            <div class="layout-home-carousel overflow-hidden max-h-450">
+                <div class="p-bs-24%"></div>
+                <div class="absolute inset-0 overflow-hidden">
+                    <n-carousel class="h-full w-full" show-arrow draggable autoplay dot-type="line">
+                        {store.carousels.map(item => (
+                            <div class="w-full h-full relative" key={item.keyId}>
+                                <img class="w-full h-full block object-cover" loading="lazy" src={item.cover} alt={item.name} />
+                            </div>
+                        ))}
+                    </n-carousel>
+                </div>
             </div>
         )
     }
