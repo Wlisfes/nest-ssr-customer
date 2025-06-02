@@ -1,7 +1,7 @@
 import { toRefs } from 'vue'
 import { defineStore } from 'pinia'
 import { useState } from '@/hooks/hook-state'
-import { imageNames, fetchDelay } from '@/utils/utils-common'
+import { iconNames, imageNames, fetchDelay } from '@/utils/utils-common'
 
 export interface HomeStore {
     loading: boolean
@@ -24,12 +24,14 @@ export const useHomeStore = defineStore('HOME_STORE', () => {
     async function fetchBaseColumns() {
         return await setState({
             columns: [
-                { keyId: 1, name: 'Cloud Gateway', cover: imageNames['cloud-gateway'] },
-                { keyId: 2, name: 'SMS Gateway', cover: imageNames['sms-gateway'] },
-                { keyId: 3, name: 'Voip Gateway', cover: imageNames['voip-gateway'] },
-                { keyId: 4, name: 'Proxy Gateway', cover: imageNames['proxy-gateway'] },
-                { keyId: 5, name: 'SMS Modem', cover: imageNames['sms-modem'] },
-                { keyId: 6, name: 'GOIP Gateway', cover: imageNames['goip-gateway'] }
+                { id: 1001, name: `Cloud Gateways`, json: { w: 135, h: 35 }, cover: `https://oss.lisfes.cn/store/web/1748843796422.svg` },
+                { id: 1002, name: `Switching`, json: { w: 94, h: 34 }, cover: `https://oss.lisfes.cn/store/web/1748843796423.svg` },
+                { id: 1003, name: `WiFi`, json: { w: 51, h: 38 }, cover: `https://oss.lisfes.cn/store/web/1748843796424.svg` },
+                { id: 1004, name: `Camera Security`, json: { w: 109, h: 38 }, cover: `https://oss.lisfes.cn/store/web/1748843796425.svg` },
+                { id: 1005, name: `Door Access`, json: { w: 79, h: 38 }, cover: `https://oss.lisfes.cn/store/web/1748843796426.svg` },
+                { id: 1006, name: `Integrations`, json: { w: 94, h: 38 }, cover: `https://oss.lisfes.cn/store/web/1748843796427.svg` },
+                { id: 1007, name: `Advanced Hosting`, json: { w: 131, h: 40 }, cover: `https://oss.lisfes.cn/store/web/1748843796428.svg` },
+                { id: 1008, name: `Accessories`, json: { w: 87, h: 38 }, cover: `https://oss.lisfes.cn/store/web/1748843796429.svg` }
             ]
         })
     }

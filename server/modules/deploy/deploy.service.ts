@@ -7,7 +7,7 @@ export class DeployService extends Logger {
     @AutoDescriptor
     public async httpBaseDeployChunkColumn() {
         return await this.fetchResolver({
-            list: []
+            list: [{ id: 1000, image: `https://oss.lisfes.cn/store/web/1748843796421.svg` }]
         })
     }
 }
