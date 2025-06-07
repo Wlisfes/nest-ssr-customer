@@ -60,7 +60,7 @@ export default defineComponent({
                         </div>
                     </div>
                     <div
-                        class="flex items-center gap-10 md:flex-row xs:flex-col xxs:flex-col xs:items-start xxs:items-start justify-between p-bs-16 border-t border-t-solid border-t-[var(--border-color)]"
+                        class="flex items-center gap-10 justify-between p-bs-16 border-t border-t-solid border-t-[var(--border-color)]"
                         style={{ transition: 'border-top-color 0.3s var(--n-bezier)' }}
                     >
                         <div class="flex items-center gap-10">

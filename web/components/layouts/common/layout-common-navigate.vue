@@ -16,10 +16,9 @@ export default defineComponent({
                 <router-link to="/" class="flex">
                     <n-button text focusable={false}>
                         <common-wrapper name="nest-logo" size={42}></common-wrapper>
-                        <div class="text-20 line-height-20 p-is-5 p-bs-1 font-600">Nuxt</div>
                     </n-button>
                 </router-link>
-                <div class={`flex-1 sm:p-inline-40 xs:p-inline-20 ${props.elementClass ?? ''}`}>{slots.default && slots.default()}</div>
+                <div class={`flex-1 ${props.elementClass ?? ''}`}>{slots.default && slots.default()}</div>
                 <div class="flex items-center gap-28">
                     <n-button text focusable={false}>
                         <common-wrapper name="nest-search" size={24}></common-wrapper>

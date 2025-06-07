@@ -9,9 +9,7 @@ export default defineComponent({
 
         return () => (
             <div class="layout-home-choose flex-col overflow-hidden">
-                <n-h2 class="common-width-inline lg:text-28 sm:text-20 xxs:text-16  line-height-34 m-be-0 p-bs-44 font-600">
-                    Take a look at our core products
-                </n-h2>
+                <n-h2 class="common-width-inline line-height-34 m-be-0 p-bs-44 font-600">Take a look at our core products</n-h2>
                 <div class="common-width-inline p-block-16">
                     <n-grid x-gap={16} y-gap={24} cols={2}>
                         <n-grid-item>
