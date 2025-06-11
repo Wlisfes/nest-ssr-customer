@@ -1,5 +1,4 @@
 /// <reference types="vite/client" />
-import { AxiosInstance, InternalAxiosRequestConfig, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { RouteLocationNormalizedLoaded, Router } from 'vue-router'
 import { Request } from 'express'
 import { Pinia } from 'pinia'
@@ -20,12 +19,7 @@ export interface ContextServerOptions {
     pinia: Pinia
     router: Router
     request: Request
-    env: EnvOptions & ImportMeta['env']
-}
-
-declare interface AxiosRequest extends AxiosInstance {
-    <T = any, R = AxiosResponse<T>, D = any>(config: AxiosRequestConfig<D>): Promise<R & Omix<T>>
-    <T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>): Promise<R & Omix<T>>
+    env: ImportMetaEnv
 }
 
 declare module 'vue' {

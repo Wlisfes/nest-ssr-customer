@@ -17,9 +17,9 @@ router.beforeResolve(async (to, from, next) => {
     const prevMatched = router.resolve(from).matched
 
     const meta = to.meta || {}
-    meta.title = meta.title ?? ''
-    meta.keywords = meta.keywords ?? ''
-    meta.description = meta.description ?? ''
+    meta.title = meta.title ?? import.meta.env.NODE_SEO_TITLE
+    meta.keywords = meta.keywords ?? import.meta.env.NODE_SEO_KEYWORDS
+    meta.description = meta.description ?? import.meta.env.NODE_SEO_DESCRIPTION
 
     /**判断是否在当前路由跳转，activated如果是空说明是当前路由来回跳转**/
     let diffed = false

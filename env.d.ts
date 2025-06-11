@@ -35,9 +35,8 @@ declare interface EnvOptions {
     NODE_SEO_DESCRIPTION: string
 }
 
-declare interface ImportMeta {
-    readonly env: EnvOptions
-}
+/**扩展import.meta.env字段**/
+interface ImportMetaEnv extends EnvOptions {}
 
 declare namespace NodeJS {
     interface ProcessEnv extends EnvOptions {}
