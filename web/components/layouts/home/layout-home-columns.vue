@@ -1,11 +1,24 @@
 <script lang="tsx">
-import { defineComponent } from 'vue'
+import { defineComponent, CSSProperties } from 'vue'
 import { useHomeStore } from '@/views/home/store/home-store'
 
 export default defineComponent({
     name: 'LayoutHomeColumns',
     setup(props) {
         const store = useHomeStore()
+
+        /**分类样式聚合**/
+        function fetchColumnsStyleCover(url: string, opts: Omix<{ w: number; h: number }>): CSSProperties {
+            return {
+                color: 'var(--text-color-2)',
+                transition: 'color .3s var(--cubic-bezier-ease-in-out)',
+                width: opts.w + 'px',
+                height: opts.h + 'px',
+                backgroundColor: 'currentcolor',
+                aspectRatio: opts.w / opts.h,
+                mask: `url(${url}) 50% 50% / contain no-repeat`
+            }
+        }
 
         return () => (
             <div class="layout-home-columns common-width-inline">
@@ -15,13 +28,12 @@ export default defineComponent({
                             <n-button class="h-80 p-10" secondary focusable={false}>
                                 <div class="w-full h-full flex flex-col overflow-hidden">
                                     <div class="flex-1 flex flex-col items-center justify-end">
-                                        <img
-                                            class="block object-contain"
-                                            loading="lazy"
-                                            src="https://oss.lisfes.cn/store/web/1748843796421.svg"
-                                            alt="What's New"
-                                            style={{ width: '60px', height: '38px' }}
-                                        />
+                                        <div
+                                            style={fetchColumnsStyleCover(`https://oss.lisfes.cn/store/web/1748843796421.svg`, {
+                                                w: 60,
+                                                h: 38
+                                            })}
+                                        ></div>
                                     </div>
                                     <div class="text-12 line-height-20">What's New</div>
                                 </div>
@@ -32,13 +44,7 @@ export default defineComponent({
                                 <n-button class="h-80 p-10" quaternary focusable={false} key={item.keyId}>
                                     <div class="w-full h-full flex flex-col overflow-hidden">
                                         <div class="flex-1 flex flex-col items-center justify-end">
-                                            <img
-                                                class="block object-contain"
-                                                loading="lazy"
-                                                src={item.cover}
-                                                alt={item.name}
-                                                style={{ width: item.json.w + 'px', height: item.json.h + 'px' }}
-                                            />
+                                            <div style={fetchColumnsStyleCover(item.cover, item.json)}></div>
                                         </div>
                                         <div class="text-12 line-height-20">{item.name}</div>
                                     </div>
