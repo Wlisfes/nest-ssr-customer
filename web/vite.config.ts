@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { defineConfig, loadEnv, ConfigEnv, UserConfig } from 'vite'
+import { defineConfig, ConfigEnv, UserConfig } from 'vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import Compression from 'vite-plugin-compression'
@@ -10,13 +10,19 @@ import SvgLoader from 'vite-svg-loader'
 import UnoCSS from 'unocss/vite'
 import dotenv from 'dotenv'
 
-export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
-    const env = dotenv.config({ path: resolve(process.cwd(), `.env.${mode}`) }).parsed ?? {}
-    const json = Object.keys(env).reduce((s, key) => ({ ...s, [`import.meta.env.${key}`]: JSON.stringify(env[key]) }), {})
+export function fetchEnvService(mode: string) {
+    const config = dotenv.config({ path: resolve(process.cwd(), `./env/.env.${mode}`) }).parsed ?? {}
+    const json: Record<string, any> = {}
+    Object.entries(config).forEach(([key, value]) => {
+        json[`import.meta.env.${key}`] = JSON.stringify(value)
+    })
+    return json
+}
 
+export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
     return {
         root: 'web',
-        define: json,
+        define: fetchEnvService(mode),
         build: {
             rollupOptions: {
                 output: [{ format: 'cjs' }, { format: 'es' }]
