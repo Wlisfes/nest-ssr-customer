@@ -1,6 +1,5 @@
 import { createRouter as _createRouter, createMemoryHistory, createWebHistory } from 'vue-router'
-import LayoutHomeContainer from '@/components/layouts/layout-home-container.vue'
-import LayoutBaseContainer from '@/components/layouts/layout-base-container.vue'
+import Layout from '@/components/layouts/layout.vue'
 import Home from '@/views/home/home.vue'
 import Not from '@/views/error/404.vue'
 
@@ -10,18 +9,18 @@ export function createRouter(options: Omix<{ ssr: boolean }>) {
         routes: [
             {
                 path: '/',
-                redirect: '/',
-                name: 'LayoutHomeContainer',
-                component: LayoutHomeContainer,
+                name: 'HomeLayout',
+                component: Layout,
+                props: { name: Layout.name },
                 children: [
-                    { path: '/', name: 'Home', meta: { AUTH: 'NONE' }, component: Home },
+                    { path: '/', name: 'Home', props: { name: Layout.name }, meta: { AUTH: 'NONE' }, component: Home },
                     { path: '/:pathMatch(.*)*', name: 'Not', meta: { AUTH: 'NONE' }, component: Not }
                 ]
             },
             {
                 path: '/',
-                name: 'LayoutBaseContainer',
-                component: LayoutBaseContainer,
+                name: 'GlobalLayout',
+                component: Layout,
                 children: [
                     {
                         path: '/about',

@@ -150,7 +150,7 @@ export const useHomeStore = defineStore('HOME_STORE', () => {
     /**初始化**/
     async function fetchMouseInitialize() {
         try {
-            await Promise.all([fetchBaseSpecsList(), fetchBaseColumns(), fetchBaseCarousels(), fetchBaseBrowses()])
+            await Promise.all([fetchBaseColumns(), fetchBaseCarousels(), fetchBaseBrowses()])
             return await setState({ initialize: false, loading: false })
         } catch (err) {
             return await setState({ initialize: false, loading: false })
