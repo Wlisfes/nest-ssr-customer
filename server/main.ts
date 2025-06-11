@@ -6,8 +6,8 @@ import { AppModule } from '@server/app.module'
 import { createViteServer } from '@server/vite.server'
 import { resolve } from 'path'
 import compression from 'compression'
-import * as express from 'express'
-import * as cookieParser from 'cookie-parser'
+import cookieParser from 'cookie-parser'
+import express from 'express'
 
 /**文档挂载**/
 export async function setupSwagger(app: NestExpressApplication) {
@@ -29,7 +29,7 @@ export async function setupSwagger(app: NestExpressApplication) {
         .build()
     const document = SwaggerModule.createDocument(app, builder)
     return SwaggerModule.setup('/api/swagger', app, document, {
-        customSiteTitle: process.env.NODE_SEO_SUBTITLE,
+        customSiteTitle: `${process.env.NODE_SEO_TITLE} - ${process.env.NODE_SEO_SUBTITLE}`,
         swaggerOptions: {
             defaultModelsExpandDepth: -1,
             defaultModelExpandDepth: 5,
@@ -52,7 +52,11 @@ async function bootstrap() {
     }
     return await setupSwagger(app).then(async () => {
         return await app.listen(process.env.NODE_PORT).then(() => {
-            console.log(`Nest服务启动[${process.env.NODE_ENV}]:`, `http://localhost:${process.env.NODE_PORT}`)
+            console.log(
+                `Nest服务启动[${process.env.NODE_ENV}]:`,
+                `http://localhost:${process.env.NODE_PORT}`,
+                `http://localhost:${process.env.NODE_PORT}/api/swagger`
+            )
         })
     })
 }
