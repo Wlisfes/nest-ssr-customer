@@ -6,6 +6,7 @@ export declare interface AxiosRequest extends AxiosInstance {
 }
 
 export const request: AxiosRequest = axios.create({
+    baseURL: import.meta.env.NODE_API_BASEURL,
     timeout: 90000
 })
 
@@ -23,7 +24,7 @@ request.interceptors.request.use(
 request.interceptors.response.use(fetchInizeNotice, error => Promise.reject(error))
 
 function fetchInizeNotice(response: AxiosResponse) {
-    if (response.data.code !== 200) {
+    if (response.data.code != 0) {
         return Promise.reject(response.data)
     }
     return Promise.resolve(response.data)

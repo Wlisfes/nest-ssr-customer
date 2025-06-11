@@ -23,6 +23,8 @@ declare interface EnvOptions {
     NODE_ENV: 'development' | 'production'
     /**服务端口号**/
     NODE_PORT: number
+    /**接口API地址**/
+    NODE_API_BASEURL: string
     /**网站标题**/
     NODE_SEO_TITLE: string
     /**网站副标题**/
@@ -34,7 +36,7 @@ declare interface EnvOptions {
 }
 
 declare interface ImportMeta {
-    readonly env: EnvOptions & {}
+    readonly env: EnvOptions
 }
 
 declare namespace NodeJS {

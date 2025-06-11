@@ -2,6 +2,7 @@ import { toRefs } from 'vue'
 import { defineStore } from 'pinia'
 import { useState } from '@/hooks/hook-state'
 import { iconNames, imageNames, fetchDelay } from '@/utils/utils-common'
+import { request } from '@/utils/utils-request'
 
 export interface HomeStore {
     loading: boolean
@@ -19,6 +20,16 @@ export const useHomeStore = defineStore('HOME_STORE', () => {
         carousels: [],
         browses: []
     })
+
+    async function fetchBaseSpecsList() {
+        try {
+            return await request({ url: `/soip/goods/specs/list`, method: 'GET' }).then(response => {
+                console.log(response)
+            })
+        } catch (err) {
+            console.log('fetchBaseSpecsList:', err)
+        }
+    }
 
     /**获取一级分类栏目**/
     async function fetchBaseColumns() {
@@ -139,7 +150,7 @@ export const useHomeStore = defineStore('HOME_STORE', () => {
     /**初始化**/
     async function fetchMouseInitialize() {
         try {
-            await Promise.all([fetchBaseColumns(), fetchBaseCarousels(), fetchBaseBrowses()])
+            await Promise.all([fetchBaseSpecsList(), fetchBaseColumns(), fetchBaseCarousels(), fetchBaseBrowses()])
             return await setState({ initialize: false, loading: false })
         } catch (err) {
             return await setState({ initialize: false, loading: false })
