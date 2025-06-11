@@ -4701,10 +4701,10 @@ slash@3.0.0:
   resolved "https://registry.npmmirror.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
 
-snowflake-id-maker@^0.0.11:
-  version "0.0.11"
-  resolved "https://registry.npmmirror.com/snowflake-id-maker/-/snowflake-id-maker-0.0.11.tgz#7e650662183068be4fe1114cd6a03245041f04fd"
-  integrity sha512-vDk9ASgmZ1wxmrIIVCVF+zlpMDBtcaecWLUfdtcoD9+OJoLXe31JpqWl97bRxJBGy2jk+SCssloW2G9/h2UG1w==
+snowflake-id-maker@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.npmmirror.com/snowflake-id-maker/-/snowflake-id-maker-0.0.10.tgz#2cadeb2195ff452c829b5b6544ae2946e0aa2f02"
+  integrity sha512-CH1gxSQ8yAnSuQXrXQGsYAq3THtLIC6HAF7o8UOFN6g2n6fAmU/Rc6mQsTO6yD0Qx4SaVnOr5tAPn4B2m8MLsg==
   dependencies:
     bigint-conversion "^2.4.3"
 
