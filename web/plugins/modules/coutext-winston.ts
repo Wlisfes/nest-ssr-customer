@@ -7,19 +7,25 @@ import chalk from 'chalk'
 /**封装日志输出包**/
 export class WinstonService {
     static instance: WinstonService
+    static initialize: boolean = false
     constructor(
         private readonly ssr: boolean,
         private readonly logger: Logger
     ) {
         if (!WinstonService.instance) {
+            WinstonService.initialize = true
             WinstonService.instance = this
         }
         return WinstonService.instance
     }
 
+    public static async fetchInitialize(initialize: boolean) {
+        return (WinstonService.initialize = initialize)
+    }
+
     public info(message: string, log) {
         if (this.ssr) {
-            this.logger.info(message, log)
+            this.logger.info(message, { log })
         } else {
             console.info(message, ...log)
         }
@@ -28,7 +34,7 @@ export class WinstonService {
 
     public error(message: string, log) {
         if (this.ssr) {
-            this.logger.error(message, log)
+            this.logger.error(message, { log })
         } else {
             console.error(message, ...log)
         }
@@ -36,15 +42,16 @@ export class WinstonService {
     }
 }
 
-export function CoutextWinston(ssr: boolean, request?: Request) {
+export function CoutextWinston(ssr: boolean, request?: Request): Promise<WinstonService> {
     return new Promise(resolve => {
         if (!ssr) {
-            return resolve(console)
-        } else if (WinstonService.instance) {
+            return resolve(console as never)
+        } else if (WinstonService.instance && WinstonService.initialize) {
             return resolve(WinstonService.instance)
         }
         return import('winston').then(async winston => {
             await import('winston-daily-rotate-file')
+            await WinstonService.fetchInitialize(true)
             const logger = winston.createLogger({
                 transports: [
                     new winston.transports.DailyRotateFile({
@@ -66,9 +73,12 @@ export function CoutextWinston(ssr: boolean, request?: Request) {
                                     value: chalk.red('ERROR'),
                                     fallback: chalk.green(data.level.toUpperCase())
                                 })
-                                const module = [pid, timestamp, level, message].filter(isNotEmpty).join(`  `)
-                                console[data.level](`${module}`, { ...data.log })
-                                return `服务进程:[${process.pid}]  ${data.timestamp}  ${data.level.toUpperCase()}  执行方法:[${data.message}]  {}`
+                                const log = fetchWherer(data.log instanceof Error, {
+                                    value: (data.log as Error).stack,
+                                    fallback: JSON.stringify(data.log)
+                                })
+                                console[data.level](`${[pid, timestamp, level, message].filter(isNotEmpty).join(`  `)}`, log)
+                                return `服务进程:[${process.pid}]  ${data.timestamp}  ${data.level.toUpperCase()}  执行方法:[${data.message}]  ${log}`
                             })
                         )
                     })

@@ -5,8 +5,14 @@ import { useHomeStore } from '@/views/home/store/home-store'
 export default defineComponent({
     name: 'Home',
     async httpServer({ pinia, logger }) {
+        try {
+            const data: Omix = {}
+            throw console.log(data.a.dasda)
+        } catch (err) {
+            logger.error('Home', err)
+        }
         // logger.info('[Home.vue]', {
-        //     title: '大苏打33的撒大1111111',
+        //     title: '大苏打33的撒大1111111dsadasdsaDDSADAASDSADASDASDASDAdas',
         //     date: Date.now()
         // })
         const store = useHomeStore(pinia)
