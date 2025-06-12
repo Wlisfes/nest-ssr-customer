@@ -1,6 +1,6 @@
-import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common'
+import { Module, NestModule, RequestMethod, MiddlewareConsumer } from '@nestjs/common'
 import { APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core'
-import { LoggerMiddleware } from '@server/middleware/logger.middleware'
+import { UserAgentMiddleware, LoggerMiddleware } from '@server/middleware/logger.middleware'
 import { ConfigModule } from '@server/modules/config/config.module'
 import { TransformInterceptor } from '@server/interceptor/transform.interceptor'
 import { HttpExceptionFilter } from '@server/filters/http-exception.filter'
@@ -19,6 +19,7 @@ import { WebModule } from '@server/modules/web/web.module'
 })
 export class AppModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
-        consumer.apply(LoggerMiddleware).forRoutes('*')
+        consumer.apply(UserAgentMiddleware).forRoutes('*')
+        consumer.apply(LoggerMiddleware).forRoutes({ path: 'api/*', method: RequestMethod.ALL })
     }
 }

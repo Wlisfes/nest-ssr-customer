@@ -1,11 +1,12 @@
-import { Controller, Post, Get, Body, Request } from '@nestjs/common'
+import { Post, Get, Body, Request } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
+import { WithController } from '@server/decorator/with.decorator'
 import { ApiDecorator } from '@server/decorator/request.decorator'
 import { OmixRequest } from '@server/interface/instance.resolver'
 import { UserService } from '@server/modules/system/user/system-user.service'
 
 @ApiTags('用户模块')
-@Controller('user')
+@WithController('system/user')
 export class UserController {
     constructor(private readonly userService: UserService) {}
 

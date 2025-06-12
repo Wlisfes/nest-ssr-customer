@@ -1,6 +1,8 @@
 import { snowflakeId } from 'snowflake-id-maker'
 import { zh_CN, Faker } from '@faker-js/faker'
 import { isNotEmpty } from 'class-validator'
+import { Request } from 'express'
+import { getClientIp } from 'request-ip'
 import DayJS from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
@@ -19,4 +21,18 @@ export function fetchIntNumber(opts: Omix<{ bit?: number }> = {}) {
         return Array.from({ length: opts.bit }, x => Math.floor(Math.random() * 9) + 1).join('')
     }
     return snowflakeId({ worker: process.pid, epoch: 1199145600000 })
+}
+
+/**条件值返回**/
+export function fetchWherer<T>(where: boolean, scope: Omix<{ value: T; fallback?: T; defaultValue?: T }>): T {
+    if (where) {
+        return scope.value ?? scope.defaultValue
+    }
+    return scope.fallback ?? scope.defaultValue
+}
+
+/**获取IP**/
+export function fetchIPClient(request: Omix<Request>) {
+    const ipv4 = getClientIp(request)
+    return ['localhost', '::1', '::ffff:127.0.0.1'].includes(ipv4) ? '127.0.0.1' : ipv4.replace(/^.*:/, '')
 }
