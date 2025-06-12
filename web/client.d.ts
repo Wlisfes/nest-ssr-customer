@@ -2,6 +2,7 @@
 import { RouteLocationNormalizedLoaded, Router } from 'vue-router'
 import { Request } from 'express'
 import { Pinia } from 'pinia'
+import { Logger } from 'winston'
 
 /**seo相关配置**/
 export interface MateServerOptions extends Omix {
@@ -16,6 +17,7 @@ export interface MateServerOptions extends Omix {
 /**服务端异步获取数据上下文**/
 export interface ContextServerOptions {
     route: RouteLocationNormalizedLoaded
+    logger: Logger
     pinia: Pinia
     router: Router
     request: Request

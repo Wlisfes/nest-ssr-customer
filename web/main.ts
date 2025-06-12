@@ -5,17 +5,17 @@ import { Request } from 'express'
 import { createSSRApp } from 'vue'
 import { createPinia } from 'pinia'
 import { createRouter } from '@/router'
-import { CoutextServer } from '@/plugins'
+import { CoutextServer, CoutextWinston } from '@/plugins'
 import { i18n } from '@/i18n'
 import { setup } from '@css-render/vue3-ssr'
 import App from '@/App.vue'
 
-export interface AppServerOptions {
+export interface AppOptions {
     ssr: boolean
     request?: Request
 }
 
-export function createAppServer(options: AppServerOptions) {
+export function createAppServer(options: AppOptions) {
     const app = createSSRApp(App)
     const router = createRouter(options)
     const pinia = createPinia()
@@ -26,5 +26,10 @@ export function createAppServer(options: AppServerOptions) {
     app.use(pinia)
     app.use(i18n)
 
-    return { app, router, pinia, collect }
+    /**初始化日志中间件**/
+    async function fetchWinston() {
+        return await CoutextWinston(options.ssr)
+    }
+
+    return { app, router, pinia, collect, fetchWinston }
 }

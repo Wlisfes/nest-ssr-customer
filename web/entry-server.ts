@@ -4,8 +4,9 @@ import { isPromise } from '@/utils/is'
 import { createAppServer } from '@/main'
 
 export async function render(request: Request, manifest: Record<string, string[]>) {
-    const { app, router, pinia, collect } = createAppServer({ request, ssr: true })
+    const { app, router, pinia, collect, fetchWinston } = createAppServer({ request, ssr: true })
 
+    const logger = await fetchWinston()
     /**进入路由页面并等待执行完成**/
     await router.push(request.originalUrl)
     await router.isReady()
@@ -38,7 +39,7 @@ export async function render(request: Request, manifest: Record<string, string[]
      * 服务端entry-server.ts中先执行了await router.isReady();，所以router.currentRoute.value的值是to
      * 所以httpServer集合中执行的请求，如果需要当前页面路由参数请用route获取
      */
-    const config = { pinia, route: route.value, router, request, env: process.env }
+    const config = { logger, pinia, route: route.value, router, request, env: process.env }
 
     /**获取httpServer集合**/
     const httpServerOptions: any = []

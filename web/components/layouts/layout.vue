@@ -7,8 +7,6 @@ export default defineComponent({
         name: { type: String }
     },
     setup(props, { slots, attrs }) {
-        console.log(props)
-
         return () => (
             <n-layout class="h-full overflow-hidden" content-class="flex flex-col overflow-hidden">
                 <n-layout-header>

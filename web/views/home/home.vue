@@ -4,7 +4,11 @@ import { useHomeStore } from '@/views/home/store/home-store'
 
 export default defineComponent({
     name: 'Home',
-    async httpServer({ pinia }) {
+    async httpServer({ pinia, logger }) {
+        logger.info('[Home.vue]', {
+            title: '大苏打33的撒大1111111',
+            date: Date.now()
+        })
         const store = useHomeStore(pinia)
         return await store.fetchMouseInitialize()
     },

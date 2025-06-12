@@ -1,6 +1,6 @@
 import { isPromise } from '@/utils/is'
 import { createAppServer } from './main'
-const { app, router, pinia } = createAppServer({ ssr: false })
+const { app, router, pinia, fetchWinston } = createAppServer({ ssr: false })
 
 if (window.__INITIAL_DATA__) {
     pinia.state.value = window.__INITIAL_DATA__
@@ -8,6 +8,7 @@ if (window.__INITIAL_DATA__) {
 
 /**置服务器读取ajax数据，且浏览器第一次加载当前页时，不调取ajax数据**/
 router.beforeResolve(async (to, from, next) => {
+    const logger = await fetchWinston()
     /**第一次进入项目**/
     if (from && !from.name) {
         return next()
@@ -15,7 +16,6 @@ router.beforeResolve(async (to, from, next) => {
 
     const matched = router.resolve(to).matched
     const prevMatched = router.resolve(from).matched
-
     const meta = to.meta || {}
     meta.title = meta.title ?? import.meta.env.NODE_SEO_TITLE
     meta.keywords = meta.keywords ?? import.meta.env.NODE_SEO_KEYWORDS
@@ -48,7 +48,7 @@ router.beforeResolve(async (to, from, next) => {
      * 服务端entry-server.ts中先执行了await router.isReady();，所以router.currentRoute.value的值是to
      * 所以httpServer集合中执行的请求，如果需要当前页面路由参数请用route获取
      */
-    const config = { pinia, route: to, router, request: {}, env: import.meta.env }
+    const config = { logger, pinia, route: to, router, request: {}, env: import.meta.env }
 
     /**获取httpServer集合**/
     const httpServerOptions: any = []
