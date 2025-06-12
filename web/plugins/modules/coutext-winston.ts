@@ -1,17 +1,51 @@
-import type { Logger } from 'winston'
-import type { Request } from 'express'
+import { type Logger } from 'winston'
+import { type Request } from 'express'
+import { isNotEmpty } from 'class-validator'
+import { fetchWherer } from '@/utils/utils-common'
+import chalk from 'chalk'
 
-let logger: null | Logger = null
+/**封装日志输出包**/
+export class WinstonService {
+    static instance: WinstonService
+    constructor(
+        private readonly ssr: boolean,
+        private readonly logger: Logger
+    ) {
+        if (!WinstonService.instance) {
+            WinstonService.instance = this
+        }
+        return WinstonService.instance
+    }
+
+    public info(message: string, log) {
+        if (this.ssr) {
+            this.logger.info(message, log)
+        } else {
+            console.info(message, ...log)
+        }
+        return this
+    }
+
+    public error(message: string, log) {
+        if (this.ssr) {
+            this.logger.error(message, log)
+        } else {
+            console.error(message, ...log)
+        }
+        return this
+    }
+}
+
 export function CoutextWinston(ssr: boolean, request?: Request) {
     return new Promise(resolve => {
         if (!ssr) {
             return resolve(console)
-        } else if (logger) {
-            return resolve(logger)
+        } else if (WinstonService.instance) {
+            return resolve(WinstonService.instance)
         }
         return import('winston').then(async winston => {
             await import('winston-daily-rotate-file')
-            logger = winston.createLogger({
+            const logger = winston.createLogger({
                 transports: [
                     new winston.transports.DailyRotateFile({
                         level: 'debug',
@@ -25,14 +59,22 @@ export function CoutextWinston(ssr: boolean, request?: Request) {
                             winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
                             winston.format.json(),
                             winston.format.printf((data: Omix) => {
-                                console.log(data)
-                                return JSON.stringify(data)
+                                const pid = chalk.hex('#fc5404 ')(`服务进程:[${process.pid}]`)
+                                const timestamp = chalk.hex('#fb9300')(`${data.timestamp}`)
+                                const message = chalk.hex('#ff3d68')(`执行方法:[${data.message}]`)
+                                const level = fetchWherer(data.level === 'error', {
+                                    value: chalk.red('ERROR'),
+                                    fallback: chalk.green(data.level.toUpperCase())
+                                })
+                                const module = [pid, timestamp, level, message].filter(isNotEmpty).join(`  `)
+                                console[data.level](`${module}`, { ...data.log })
+                                return `服务进程:[${process.pid}]  ${data.timestamp}  ${data.level.toUpperCase()}  执行方法:[${data.message}]  {}`
                             })
                         )
                     })
                 ]
             })
-            return resolve(logger)
+            return resolve(new WinstonService(ssr, logger))
         })
     })
 }

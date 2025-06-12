@@ -8,7 +8,7 @@ if (window.__INITIAL_DATA__) {
 
 /**置服务器读取ajax数据，且浏览器第一次加载当前页时，不调取ajax数据**/
 router.beforeResolve(async (to, from, next) => {
-    const logger = await fetchWinston()
+    // const logger = await fetchWinston()
     /**第一次进入项目**/
     if (from && !from.name) {
         return next()
@@ -48,7 +48,7 @@ router.beforeResolve(async (to, from, next) => {
      * 服务端entry-server.ts中先执行了await router.isReady();，所以router.currentRoute.value的值是to
      * 所以httpServer集合中执行的请求，如果需要当前页面路由参数请用route获取
      */
-    const config = { logger, pinia, route: to, router, request: {}, env: import.meta.env }
+    const config = { pinia, route: to, router, request: {}, env: import.meta.env }
 
     /**获取httpServer集合**/
     const httpServerOptions: any = []

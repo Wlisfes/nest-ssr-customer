@@ -33,8 +33,11 @@ export function enter(e: KeyboardEvent, handler?: Function) {
 }
 
 /**根据条件返回不同参数**/
-export function fetchWhere<T>(where: boolean, value: T, defaultValue?: T): T {
-    return (where ? value : defaultValue) as T
+export function fetchWherer<T>(where: boolean, scope: Omix<{ value: T; fallback?: T; defaultValue?: T }>): T {
+    if (where) {
+        return (scope.value ?? scope.defaultValue) as T
+    }
+    return (scope.fallback ?? scope.defaultValue) as T
 }
 
 /**根据条件返回列表项**/
