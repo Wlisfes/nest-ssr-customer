@@ -5,7 +5,45 @@ import { WinstonModule } from 'nest-winston'
 import { fetchWherer } from '@server/utils/utils-common'
 import winston from 'winston'
 import chalk from 'chalk'
+import util from 'util'
 import 'winston-daily-rotate-file'
+
+/**对象数据转换**/
+export function fetchReduces(data: Omix) {
+    const items = Object.keys(data ?? {}).map(key => `"${key.toString()}": ${JSON.stringify(data[key.toString()])}`)
+    return items.join(`,\n    `)
+}
+
+/**写入数据组合**/
+export function fetchWrite(data: Omix, opts: Omix<{ middleware?: string; log: any }>) {
+    return `服务进程:[${process.pid}]  ${data.timestamp}  ${data.level.toUpperCase()}  上下文ID:[${data.context ?? ''}]  执行方法:[${data.message}]  ${opts.middleware ?? ''}耗时:${data.duration}  {\n    ${opts.log}\n}`
+}
+
+/**数据拆解**/
+export function fetchTransports(data: Omix) {
+    const pid = chalk.hex('#fc5404 ')(`服务进程:[${process.pid}]`)
+    const timestamp = chalk.hex('#fb9300')(`${data.timestamp}`)
+    const message = chalk.hex('#ff3d68')(`执行方法:[${data.message}]`)
+    const context = fetchWherer(Boolean(data.context), {
+        value: chalk.hex('#536dfe')(`日志ID:[${data.context ?? ''}]`),
+        defaultValue: ''
+    })
+    const level = fetchWherer(data.level === 'error', {
+        value: chalk.red('ERROR'),
+        fallback: chalk.green(data.level.toUpperCase())
+    })
+    const duration = fetchWherer(isNotEmpty(data.duration), {
+        value: chalk.hex('#ff3d68')(`耗时:${data.duration ?? '[]'}`),
+        defaultValue: ''
+    })
+    const url = fetchWherer(Boolean(data.log?.url), {
+        value: chalk.hex('#fc5404')(`接口地址:[${data.log?.url ?? ''}]`, ''),
+        defaultValue: ''
+    })
+    const module = [pid, timestamp, level, context, message].filter(isNotEmpty).join(`  `)
+
+    return { url, module, duration }
+}
 
 @Global()
 @Module({
@@ -26,43 +64,28 @@ import 'winston-daily-rotate-file'
                         winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
                         winston.format.json(),
                         winston.format.printf((data: Omix) => {
-                            const pid = chalk.hex('#fc5404 ')(`服务进程:[${process.pid}]`)
-                            const timestamp = chalk.hex('#fb9300')(`${data.timestamp}`)
-                            const message = chalk.hex('#ff3d68')(`执行方法:[${data.message}]`)
-                            const context = fetchWherer(Boolean(data.context), {
-                                value: chalk.hex('#536dfe')(`日志ID:[${data.context ?? ''}]`),
-                                defaultValue: ''
-                            })
-                            const level = fetchWherer(data.level === 'error', {
-                                value: chalk.red('ERROR'),
-                                fallback: chalk.green(data.level.toUpperCase())
-                            })
-                            const duration = fetchWherer(isNotEmpty(data.duration), {
-                                value: chalk.hex('#ff3d68')(`耗时:${data.duration ?? '[]'}`),
-                                defaultValue: ''
-                            })
-                            const module = [pid, timestamp, level, context, message].filter(isNotEmpty).join(`  `)
+                            const { url, module, duration } = fetchTransports(data)
+                            /**中间件日志**/
                             if (['LoggerMiddleware'].includes(String(data.message))) {
-                                /**中间件日志**/
-                                const url = fetchWherer(Boolean(data.log.url), {
-                                    value: chalk.hex('#fc5404')(`接口地址:[${data.log.url ?? ''}]`, ''),
-                                    defaultValue: ''
-                                })
-                                const text = Object.keys(data.log ?? {}).reduce((current, key) => {
-                                    return (current += `	"${key.toString()}": ${JSON.stringify(data.log[key.toString()])}, \n`)
-                                }, '')
-                                console[data.level](`${module}  ${url}  ${duration}`, { ...data.log })
-                                return `服务进程:[${process.pid}]  ${data.timestamp}  ${data.level.toUpperCase()}  上下文ID:[${data.context ?? ''}]  执行方法:[${data.message}]  接口地址:${data.log.url}  耗时:${data.duration}  {\n${text}}`
-                            } else if (typeof data.log === 'string') {
-                                console[data.level](`${module}  ${duration}  {\n    log: ${chalk.red(data.log)}\n}`)
-                                return `${process.pid} ${data.timestamp} ${data.level.toUpperCase()}  上下文ID:[${data.context ?? ''}]  执行方法:[${data.message}]  耗时:${data.duration}  {\n    "log": ${data.log}\n}`
-                            } else {
-                                const text = Object.keys(data.log ?? {}).reduce((current, key) => {
-                                    return (current += `	"${key.toString()}": ${JSON.stringify(data.log[key.toString()])}, \n`)
-                                }, '')
-                                console[data.level](`${module}  ${duration}`, { ...data.log })
-                                return `服务进程:[${process.pid}]  ${data.timestamp}  ${data.level.toUpperCase()}  上下文ID:[${data.context ?? ''}]  执行方法:[${data.message}]  耗时:${data.duration}  {\n${text}}`
+                                console[data.level](`${module}  ${url}  ${duration}`, data.log)
+                                return fetchWrite(data, { middleware: `接口地址:${data.log.url}  `, log: fetchReduces(data.log) })
                             }
+
+                            /**异常错误日志**/
+                            if (data.log instanceof Error) {
+                                console[data.level](`${module}  ${url}  ${duration}`, data.log)
+                                return fetchWrite(data, { log: util.inspect(data.log, { depth: null }) })
+                            }
+
+                            /**常规日志**/
+                            if (typeof data.log === 'string') {
+                                console[data.level](`${module}  ${duration}  {\n    log: ${chalk.red(data.log)}\n}`)
+                                return fetchWrite(data, { log: `log: ${data.log}` })
+                            }
+
+                            /**其他日志**/
+                            console[data.level](`${module}  ${duration}`, data.log)
+                            return fetchWrite(data, { log: fetchReduces(data.log) })
                         })
                     )
                 })
