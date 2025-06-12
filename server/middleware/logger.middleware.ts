@@ -17,7 +17,6 @@ export class LoggerMiddleware implements NestMiddleware {
     constructor(@Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) {}
 
     async use(request: Omix<Request>, response: Response, next: NextFunction) {
-        console.log('LoggerMiddleware:', request)
         const date = Date.now()
         const context = fetchIntNumber()
         request.ipv4 = fetchIPClient(request)
