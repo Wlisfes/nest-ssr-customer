@@ -5,6 +5,7 @@ import { DatabaseService } from '@server/modules/database/database.service'
 import { OmixRequest } from '@server/interface/instance.resolver'
 import { fetchIntNumber } from '@server/utils/utils-common'
 import * as schema from '@server/modules/database/database.schema'
+import * as field from '@server/interface/instance.resolver'
 
 @Injectable()
 export class UserService extends Logger {
@@ -14,7 +15,7 @@ export class UserService extends Logger {
 
     /**注册账号**/
     @AutoDescriptor
-    public async httpBaseSystemUserRegister(request: OmixRequest) {
+    public async httpBaseSystemUserRegister(request: OmixRequest, body: field.BaseSystemUserRegister) {
         const ctx = await this.database.fetchConnectTransaction()
         try {
             return await this.database.fetchConnectBuilder(this.database.schemaUser, async qb => {
@@ -22,7 +23,7 @@ export class UserService extends Logger {
                     deplayName: this.deplayName,
                     request,
                     body: {
-                        nickname: '妖雨纯',
+                        // nickname: '妖雨纯',
                         email: 'limvcfast@gmail.com',
                         password: 'MTIzNDU2',
                         avatar: 'https://oss.lisfes.cn/avatar/174721036941364253046.jpg'
