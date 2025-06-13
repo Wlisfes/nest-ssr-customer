@@ -3,7 +3,7 @@ import { createI18n, useI18n } from 'vue-i18n'
 import { messages, I18nContext, I18nNode, I18nStore } from '@/i18n/messages'
 import { useCoutext, AUTH } from '@/hooks/hook-context'
 
-export const locale = ref<'cn' | 'en'>(getDefaultLocale())
+export const locale = ref<keyof typeof messages>(getDefaultLocale())
 export const i18n = createI18n({
     id: 'APP_NEST_I18N',
     legacy: false,
@@ -21,7 +21,7 @@ export function getDefaultLocale() {
 }
 
 /**切换语言**/
-export async function fetchI18nUpdate(value: 'cn' | 'en') {
+export async function fetchI18nUpdate(value: keyof typeof messages) {
     const { cookies } = useCoutext()
     await cookies.set(AUTH.APP_NEST_LOCALE, value)
     locale.value = value
@@ -29,7 +29,7 @@ export async function fetchI18nUpdate(value: 'cn' | 'en') {
 }
 
 /**动态加载翻译配置**/
-export async function fetchI18nContextUpdate(value: 'cn' | 'en', data: Omix = {}) {
+export async function fetchI18nContextUpdate(value: keyof typeof messages, data: Omix = {}) {
     return i18n.global.mergeLocaleMessage(value, data)
 }
 
@@ -38,22 +38,22 @@ export function useI18nContext() {
 
     /**重载t方法**/
     function t<T extends I18nContext | (string & {})>(path: T, props: Omix = {}): string {
-        return ctx.t(path as any, props)
+        return ctx.t(path, props)
     }
 
     /**异步重载t方法**/
     function at<T extends I18nContext | (string & {})>(path: T, props: Omix = {}): () => string {
-        return () => ctx.t(path as any, props)
+        return () => ctx.t(path, props)
     }
 
     /**载tm方法**/
     function tm<T, P extends I18nContext | (string & {})>(path: P): Array<Omix<I18nNode<T>>> {
-        return ctx.tm(path as any)
+        return ctx.tm(path)
     }
 
     /**异步载tm方法**/
     function atm<T, P extends I18nContext | (string & {})>(path: P): () => Array<Omix<I18nNode<T>>> {
-        return () => ctx.tm(path as any)
+        return () => ctx.tm(path)
     }
 
     /**文字转换**/

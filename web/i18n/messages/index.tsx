@@ -1,4 +1,4 @@
-import { zhCN, enUS, dateZhCN, dateEnUS } from 'naive-ui'
+import { zhCN, enUS, ruRU, esAR, ptBR, dateZhCN, dateEnUS, dateRuRU, dateEsAR, datePtBR } from 'naive-ui'
 import { Path } from '@/i18n/interface/deep'
 
 export const messages = {
@@ -9,6 +9,18 @@ export const messages = {
     en: {
         i18nDate: dateEnUS,
         ...enUS
+    },
+    ru: {
+        i18nDate: dateRuRU,
+        ...ruRU
+    },
+    es: {
+        i18nDate: dateEsAR,
+        ...esAR
+    },
+    pt: {
+        i18nDate: datePtBR,
+        ...ptBR
     }
 }
 export default messages
