@@ -15,7 +15,7 @@ export const i18n = createI18n({
 /**获取默认语言**/
 export function getDefaultLocale() {
     const { cookies } = useCoutext()
-    return cookies.get(AUTH.APP_NEST_LOCALE) ?? 'cn'
+    return cookies.get(AUTH.APP_NEST_LOCALE) ?? 'en'
 }
 
 /**切换语言**/
@@ -24,6 +24,15 @@ export async function fetchI18nUpdate(value: 'cn' | 'en') {
     await cookies.set(AUTH.APP_NEST_LOCALE, value)
     locale.value = value
     return (i18n.global.locale.value = value)
+}
+
+/**动态加载翻译配置**/
+export async function fetchI18nContextUpdate(value: 'cn' | 'en', data: Omix = {}) {
+    const ctx = useI18n()
+    // i18n.global.mergeLocaleMessage(value, data)
+    // console.log(i18n.global.t('AcceptedUserAgreement'))
+    ctx.mergeLocaleMessage(value, data)
+    return ctx
 }
 
 export function useI18nContext() {

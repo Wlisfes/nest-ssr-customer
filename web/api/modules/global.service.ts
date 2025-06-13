@@ -1,5 +1,13 @@
 import { request } from '@/utils/utils-request'
 
+/**获取静态词组**/
+export function httpBaseI18nContentStatic() {
+    return request({
+        url: `/soip/web/i18n/getStaticI18nContentAll`,
+        method: 'GET'
+    })
+}
+
 /**获取商品分类系列**/
 export function httpBaseColumnCategory() {
     return request({

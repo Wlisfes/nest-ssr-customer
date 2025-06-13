@@ -1,6 +1,7 @@
 <script lang="tsx">
 import { defineComponent } from 'vue'
 import { useHomeStore } from '@/views/home/store/home-store'
+import { useI18nContext } from '@/i18n'
 
 export default defineComponent({
     name: 'Home',
@@ -18,8 +19,13 @@ export default defineComponent({
     //     }
     // },
     setup(props) {
+        const { ctx } = useI18nContext()
+
+        console.log(ctx)
+
         return () => (
             <n-element class="flex flex-col flex-1 overflow-hidden">
+                {ctx.t('AcceptedUserAgreement')}
                 <layout-home-columns></layout-home-columns>
                 <layout-home-carousel></layout-home-carousel>
                 <layout-home-browse></layout-home-browse>

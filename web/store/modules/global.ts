@@ -2,10 +2,11 @@ import { toRefs, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { useState } from '@/hooks/hook-state'
 import { useCoutext, AUTH } from '@/hooks/hook-context'
+import { locale, fetchI18nContextUpdate } from '@/i18n'
 import { Logger } from '@/plugins'
 import * as Service from '@/api'
 
-export const useGlobal = defineStore('APP_NEST_GLOBAL', () => {
+export const useGlobal = defineStore('APP_NEST_GLOBAL_STORE', () => {
     const { cookies } = useCoutext()
     const { state, setState } = useState({
         /**初始化**/
@@ -19,6 +20,17 @@ export const useGlobal = defineStore('APP_NEST_GLOBAL', () => {
         /**当前支付类型**/
         payStore: {}
     })
+
+    /**获取静态词组**/
+    async function fetchBaseI18nContentStatic(logger: Logger) {
+        try {
+            return await Service.httpBaseI18nContentStatic().then(async ({ data }) => {
+                return await fetchI18nContextUpdate(locale.value, data ?? {})
+            })
+        } catch (err) {
+            logger.error('获取静态词组:fetchBaseI18nContentStatic', err)
+        }
+    }
 
     /**获取商品分类系列**/
     async function fetchBaseColumnCategory(logger: Logger) {
@@ -75,6 +87,7 @@ export const useGlobal = defineStore('APP_NEST_GLOBAL', () => {
         }
         try {
             await Promise.all([
+                fetchBaseI18nContentStatic(logger),
                 fetchBaseColumnCategory(logger),
                 fetchBaseColumnSpecs(logger),
                 fetchBaseColumnBlogYears(logger),

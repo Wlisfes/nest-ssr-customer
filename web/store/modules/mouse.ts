@@ -5,7 +5,7 @@ import { themeOverrides } from '@/utils/utils-theme'
 import { useState } from '@/hooks/hook-state'
 import { useCoutext, AUTH } from '@/hooks/hook-context'
 
-export const useMouse = defineStore('APP_NEST_MOUSE', () => {
+export const useMouse = defineStore('APP_NEST_MOUSE_STORE', () => {
     const { cookies } = useCoutext()
     const { state, setState } = useState({
         /**主题**/
