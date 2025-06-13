@@ -1,18 +1,17 @@
 import { isPromise } from '@/utils/is'
 import { createAppServer } from '@/main'
-import { useGlobal } from '@/store'
+import { locale, fetchI18nContextUpdate } from '@/i18n'
 const { app, router, pinia, fetchWinston } = createAppServer({ ssr: false })
 
 if (window.__INITIAL_DATA__) {
     pinia.state.value = window.__INITIAL_DATA__
+    fetchI18nContextUpdate(locale.value, pinia.state.value.APP_NEST_GLOBAL_STORE.state.messages)
 }
 
 /**置服务器读取ajax数据，且浏览器第一次加载当前页时，不调取ajax数据**/
 router.beforeResolve(async (to, from, next) => {
     /**初始化日志配置**/
     const logger = await fetchWinston()
-    /**初始化基础数据**/
-    await useGlobal().fetchGlobaInitialize(logger)
     /**第一次进入项目**/
     if (from && !from.name) {
         return next()

@@ -5,9 +5,11 @@ import { useCoutext, AUTH } from '@/hooks/hook-context'
 
 export const locale = ref<'cn' | 'en'>(getDefaultLocale())
 export const i18n = createI18n({
+    id: 'APP_NEST_I18N',
     legacy: false,
     globalInjection: true,
     warnHtmlMessage: false,
+    silentTranslationWarn: true,
     locale: locale.value,
     messages
 })
@@ -28,11 +30,7 @@ export async function fetchI18nUpdate(value: 'cn' | 'en') {
 
 /**动态加载翻译配置**/
 export async function fetchI18nContextUpdate(value: 'cn' | 'en', data: Omix = {}) {
-    const ctx = useI18n()
-    // i18n.global.mergeLocaleMessage(value, data)
-    // console.log(i18n.global.t('AcceptedUserAgreement'))
-    ctx.mergeLocaleMessage(value, data)
-    return ctx
+    return i18n.global.mergeLocaleMessage(value, data)
 }
 
 export function useI18nContext() {

@@ -1,6 +1,7 @@
 <script lang="tsx">
 import { defineComponent } from 'vue'
 import { useHomeStore } from '@/views/home/store/home-store'
+import { useGlobal, useStore } from '@/store'
 import { useI18nContext } from '@/i18n'
 
 export default defineComponent({
@@ -10,6 +11,7 @@ export default defineComponent({
         //     title: '大苏打33的撒大1111111dsadasdsaDDSADAASDSADASDASDASDAdas',
         //     date: Date.now()
         // })
+
         const store = useHomeStore(pinia)
         return await store.fetchMouseInitialize()
     },
@@ -19,9 +21,9 @@ export default defineComponent({
     //     }
     // },
     setup(props) {
-        const { ctx } = useI18nContext()
-
-        console.log(ctx)
+        // const { messages } = useStore(useGlobal)
+        const { ctx, t } = useI18nContext()
+        // fetchI18nContextUpdate(locale.value, i18nMessages.value)
 
         return () => (
             <n-element class="flex flex-col flex-1 overflow-hidden">

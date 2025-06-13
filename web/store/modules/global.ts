@@ -1,16 +1,16 @@
-import { toRefs, computed } from 'vue'
+import { toRefs } from 'vue'
 import { defineStore } from 'pinia'
 import { useState } from '@/hooks/hook-state'
-import { useCoutext, AUTH } from '@/hooks/hook-context'
 import { locale, fetchI18nContextUpdate } from '@/i18n'
 import { Logger } from '@/plugins'
 import * as Service from '@/api'
 
 export const useGlobal = defineStore('APP_NEST_GLOBAL_STORE', () => {
-    const { cookies } = useCoutext()
     const { state, setState } = useState({
         /**初始化**/
         initialize: true,
+        /**国际化语言翻译**/
+        messages: {} as Omix,
         /**商品分类**/
         category: [] as Array<Omix>,
         /**商品规格**/
@@ -25,10 +25,12 @@ export const useGlobal = defineStore('APP_NEST_GLOBAL_STORE', () => {
     async function fetchBaseI18nContentStatic(logger: Logger) {
         try {
             return await Service.httpBaseI18nContentStatic().then(async ({ data }) => {
-                return await fetchI18nContextUpdate(locale.value, data ?? {})
+                await fetchI18nContextUpdate(locale.value, data ?? {})
+                return await setState({ messages: data ?? {} })
             })
         } catch (err) {
             logger.error('获取静态词组:fetchBaseI18nContentStatic', err)
+            return await setState({ messages: {} })
         }
     }
 
