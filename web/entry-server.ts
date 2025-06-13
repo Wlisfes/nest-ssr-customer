@@ -2,14 +2,17 @@ import { renderToString } from 'vue/server-renderer'
 import { Request } from 'express'
 import { isPromise } from '@/utils/is'
 import { createAppServer } from '@/main'
+import { useGlobal } from '@/store'
 
 export async function render(request: Request, manifest: Record<string, string[]>) {
     const { app, router, pinia, collect, fetchWinston } = createAppServer({ request, ssr: true })
-
+    /**初始化日志配置**/
     const logger = await fetchWinston()
     /**进入路由页面并等待执行完成**/
     await router.push(request.originalUrl)
     await router.isReady()
+    /**初始化基础数据**/
+    await useGlobal().fetchGlobaInitialize(logger)
     /**缓存当前路由相关信息**/
     const route = router.currentRoute
     const routeMatched = route.value.matched

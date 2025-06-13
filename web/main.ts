@@ -29,8 +29,8 @@ export function createAppServer(options: AppOptions) {
     /**初始化日志中间件**/
     async function fetchWinston() {
         if (process.env.NODE_ENV === 'development' && options.ssr) {
-            const { WinstonService } = await import('@/plugins/modules/coutext-winston')
-            await WinstonService.fetchInitialize(false)
+            const { Logger } = await import('@/plugins/modules/coutext-winston')
+            await Logger.fetchInitialize(false)
         }
         return await CoutextWinston(options.ssr)
     }

@@ -1,26 +1,26 @@
-import { type Logger } from 'winston'
+import { type Logger as LoggerService } from 'winston'
 import { type Request } from 'express'
 import { isNotEmpty } from 'class-validator'
 import { fetchWherer } from '@/utils/utils-common'
 import chalk from 'chalk'
 
 /**封装日志输出包**/
-export class WinstonService {
-    static instance: WinstonService
+export class Logger {
+    static instance: Logger
     static initialize: boolean = false
     constructor(
         private readonly ssr: boolean,
-        private readonly logger: Logger
+        private readonly logger: LoggerService
     ) {
-        if (!WinstonService.instance) {
-            WinstonService.initialize = true
-            WinstonService.instance = this
+        if (!Logger.instance) {
+            Logger.initialize = true
+            Logger.instance = this
         }
-        return WinstonService.instance
+        return Logger.instance
     }
 
     public static async fetchInitialize(initialize: boolean) {
-        return (WinstonService.initialize = initialize)
+        return (Logger.initialize = initialize)
     }
 
     public info(message: string, log) {
@@ -53,16 +53,16 @@ export function fetchWrite(data: Omix, log: any) {
     return `服务进程:[${process.pid}]  ${data.timestamp}  ${data.level.toUpperCase()}  执行方法:[${data.message}]  {\n    ${log}\n}`
 }
 
-export function CoutextWinston(ssr: boolean, request?: Request): Promise<WinstonService> {
+export function CoutextWinston(ssr: boolean, request?: Request): Promise<Logger> {
     return new Promise(resolve => {
         if (!ssr) {
             return resolve(console as never)
-        } else if (WinstonService.instance && WinstonService.initialize) {
-            return resolve(WinstonService.instance)
+        } else if (Logger.instance && Logger.initialize) {
+            return resolve(Logger.instance)
         }
         return import('winston').then(async winston => {
             await import('winston-daily-rotate-file')
-            await WinstonService.fetchInitialize(true)
+            await Logger.fetchInitialize(true)
             const logger = winston.createLogger({
                 transports: [
                     new winston.transports.DailyRotateFile({
@@ -107,7 +107,7 @@ export function CoutextWinston(ssr: boolean, request?: Request): Promise<Winston
                     })
                 ]
             })
-            return resolve(new WinstonService(ssr, logger))
+            return resolve(new Logger(ssr, logger))
         })
     })
 }
