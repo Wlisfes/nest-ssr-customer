@@ -21,7 +21,8 @@ export function fetchWrite(data: Omix, opts: Omix<{ middleware?: string; log: an
 
 /**数据拆解**/
 export function fetchTransports(data: Omix) {
-    const pid = chalk.hex('#fc5404 ')(`服务进程:[${process.pid}]`)
+    const platform = chalk.hex('#24B89E')(`服务端日志`)
+    const pid = chalk.hex('#fc5404')(`服务进程:[${process.pid}]`)
     const timestamp = chalk.hex('#fb9300')(`${data.timestamp}`)
     const message = chalk.hex('#ff3d68')(`执行方法:[${data.message}]`)
     const context = fetchWherer(Boolean(data.context), {
@@ -40,7 +41,7 @@ export function fetchTransports(data: Omix) {
         value: chalk.hex('#fc5404')(`接口地址:[${data.log?.url ?? ''}]`, ''),
         defaultValue: ''
     })
-    const module = [pid, timestamp, level, context, message].filter(isNotEmpty).join(`  `)
+    const module = [platform, pid, timestamp, level, context, message].filter(isNotEmpty).join(`  `)
 
     return { url, module, duration }
 }

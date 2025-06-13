@@ -42,6 +42,17 @@ export class WinstonService {
     }
 }
 
+/**对象数据转换**/
+export function fetchReduces(data: Omix) {
+    const items = Object.keys(data ?? {}).map(key => `"${key.toString()}": ${JSON.stringify(data[key.toString()])}`)
+    return items.join(`,\n    `)
+}
+
+/**写入数据组合**/
+export function fetchWrite(data: Omix, log: any) {
+    return `服务进程:[${process.pid}]  ${data.timestamp}  ${data.level.toUpperCase()}  执行方法:[${data.message}]  {\n    ${log}\n}`
+}
+
 export function CoutextWinston(ssr: boolean, request?: Request): Promise<WinstonService> {
     return new Promise(resolve => {
         if (!ssr) {
@@ -66,19 +77,31 @@ export function CoutextWinston(ssr: boolean, request?: Request): Promise<Winston
                             winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
                             winston.format.json(),
                             winston.format.printf((data: Omix) => {
-                                const pid = chalk.hex('#fc5404 ')(`服务进程:[${process.pid}]`)
+                                const platform = chalk.hex('#24B89E')(`客户端日志`)
+                                const pid = chalk.hex('#fc5404')(`服务进程:[${process.pid}]`)
                                 const timestamp = chalk.hex('#fb9300')(`${data.timestamp}`)
                                 const message = chalk.hex('#ff3d68')(`执行方法:[${data.message}]`)
                                 const level = fetchWherer(data.level === 'error', {
                                     value: chalk.red('ERROR'),
                                     fallback: chalk.green(data.level.toUpperCase())
                                 })
-                                const log = fetchWherer(data.log instanceof Error, {
-                                    value: (data.log as Error).stack,
-                                    fallback: JSON.stringify(data.log)
-                                })
-                                console[data.level](`${[pid, timestamp, level, message].filter(isNotEmpty).join(`  `)}`, log)
-                                return `服务进程:[${process.pid}]  ${data.timestamp}  ${data.level.toUpperCase()}  执行方法:[${data.message}]  ${log}`
+                                const module = [platform, pid, timestamp, level, message].filter(isNotEmpty).join(`  `)
+
+                                /**异常输出日志**/
+                                if (data.log instanceof Error) {
+                                    console[data.level](`${module}`, data.log)
+                                    return fetchWrite(data, data.log.stack)
+                                }
+
+                                /**常规日志**/
+                                if (typeof data.log === 'string') {
+                                    console[data.level](`${module}  {\n    log: ${chalk.red(data.log)}\n}`)
+                                    return fetchWrite(data, { log: `log: ${data.log}` })
+                                }
+
+                                /**其他日志输出**/
+                                console[data.level](`${module}`, data.log)
+                                return fetchWrite(data, fetchReduces(data.log))
                             })
                         )
                     })
