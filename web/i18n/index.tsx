@@ -37,23 +37,23 @@ export function useI18nContext() {
     const ctx = useI18n()
 
     /**重载t方法**/
-    function t(path: I18nContext, props: Omix = {}): string {
-        return ctx.t(path, props)
+    function t<T extends I18nContext | (string & {})>(path: T, props: Omix = {}): string {
+        return ctx.t(path as any, props)
     }
 
     /**异步重载t方法**/
-    function at(path: I18nContext, props: Omix = {}): () => string {
-        return () => ctx.t(path, props)
+    function at<T extends I18nContext | (string & {})>(path: T, props: Omix = {}): () => string {
+        return () => ctx.t(path as any, props)
     }
 
     /**载tm方法**/
-    function tm<T>(path: I18nContext): Array<Omix<I18nNode<T>>> {
-        return ctx.tm(path)
+    function tm<T, P extends I18nContext | (string & {})>(path: P): Array<Omix<I18nNode<T>>> {
+        return ctx.tm(path as any)
     }
 
     /**异步载tm方法**/
-    function atm<T>(path: I18nContext): () => Array<Omix<I18nNode<T>>> {
-        return () => ctx.tm(path)
+    function atm<T, P extends I18nContext | (string & {})>(path: P): () => Array<Omix<I18nNode<T>>> {
+        return () => ctx.tm(path as any)
     }
 
     /**文字转换**/

@@ -5,7 +5,7 @@ const { app, router, pinia, fetchWinston } = createAppServer({ ssr: false })
 
 if (window.__INITIAL_DATA__) {
     pinia.state.value = window.__INITIAL_DATA__
-    fetchI18nContextUpdate(locale.value, pinia.state.value.APP_NEST_GLOBAL_STORE.state.messages)
+    fetchI18nContextUpdate(locale.value, window.__INITIAL_DATA__.APP_NEST_GLOBAL_STORE.messages)
 }
 
 /**置服务器读取ajax数据，且浏览器第一次加载当前页时，不调取ajax数据**/

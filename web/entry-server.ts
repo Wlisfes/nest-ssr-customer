@@ -12,7 +12,7 @@ export async function render(request: Request, manifest: Record<string, string[]
     await router.push(request.originalUrl)
     await router.isReady()
     /**初始化基础数据**/
-    await useGlobal().fetchGlobaInitialize(logger)
+    await useGlobal(pinia).fetchGlobaInitialize(logger)
     /**缓存当前路由相关信息**/
     const route = router.currentRoute
     const routeMatched = route.value.matched
