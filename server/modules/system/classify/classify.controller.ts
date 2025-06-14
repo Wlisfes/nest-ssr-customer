@@ -16,7 +16,7 @@ export class ClassifyController {
         operation: { summary: '新增产品系列' },
         response: { status: 200, description: 'OK' }
     })
-    public async httpBaseClassifyCreate(@Request() request: OmixRequest, @Body() body) {
-        // return await this.classifyService.httpBaseSystemStreamUploader(request, body)
+    public async httpBaseClassifyCreate(@Request() request: OmixRequest, @Body() body: field.BaseClassifyCreate) {
+        return await this.classifyService.httpBaseClassifyCreate(request, body)
     }
 }
