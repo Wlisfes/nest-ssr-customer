@@ -8,7 +8,7 @@ import * as Service from '@/api'
 export const useGlobal = defineStore('APP_NEST_GLOBAL_STORE', () => {
     const { state, setState } = useState({
         /**初始化**/
-        initialize: true,
+        initialize: false,
         /**国际化语言翻译**/
         messages: {} as Omix,
         /**商品分类**/

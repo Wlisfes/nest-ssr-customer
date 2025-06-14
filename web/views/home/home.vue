@@ -21,13 +21,10 @@ export default defineComponent({
     //     }
     // },
     setup(props) {
-        // const { messages } = useStore(useGlobal)
         const { ctx, t } = useI18nContext()
-        // fetchI18nContextUpdate(locale.value, i18nMessages.value)
 
         return () => (
             <n-element class="flex flex-col flex-1 overflow-hidden">
-                {t('AcceptedUserAgreement')}
                 <layout-home-columns></layout-home-columns>
                 <layout-home-carousel></layout-home-carousel>
                 <layout-home-browse></layout-home-browse>
