@@ -1,8 +1,11 @@
 import { Enum } from 'enum-plus'
 
-export const WeekI18n = Enum({
+/**国际化表-[字段类型]**/
+export const WeekI18nType = Enum({
     /**状态码**/
-    Code: { value: 0, label: '状态码' },
+    Code: { value: 1, label: '状态码' },
     /**静态资源**/
-    Static: { value: 0, label: '静态资源' }
-})
+    Static: { value: 2, label: '静态资源' },
+    /**商品分类**/
+    Classify: { value: 3, label: '商品分类' }
+} as const)
