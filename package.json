@@ -30,6 +30,7 @@
         "cross-env": "^6.0.3",
         "dayjs": "^1.11.10",
         "dotenv": "^16.5.0",
+        "enum-plus": "^2.3.2",
         "express": "^4.17.13",
         "express-useragent": "^1.0.15",
         "mysql2": "^3.14.0",
