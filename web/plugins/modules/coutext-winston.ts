@@ -62,6 +62,7 @@ export function CoutextWinston(ssr: boolean, request?: Request): Promise<Logger>
         }
         return import('winston').then(async winston => {
             await import('winston-daily-rotate-file')
+            const util = await import('util')
             await Logger.fetchInitialize(true)
             const logger = winston.createLogger({
                 transports: [
@@ -90,13 +91,14 @@ export function CoutextWinston(ssr: boolean, request?: Request): Promise<Logger>
                                 /**异常输出日志**/
                                 if (data.log instanceof Error) {
                                     console[data.level](`${module}`, data.log)
-                                    return fetchWrite(data, data.log.stack)
+                                    return fetchWrite(data, util.inspect(data.log, { depth: null }))
                                 }
 
                                 /**常规日志**/
                                 if (typeof data.log === 'string') {
+                                    console.log(`常规日志:`, data.log)
                                     console[data.level](`${module}  {\n    log: ${chalk.red(data.log)}\n}`)
-                                    return fetchWrite(data, { log: `log: ${data.log}` })
+                                    return fetchWrite(data, `log: ${data.log}`)
                                 }
 
                                 /**其他日志输出**/
