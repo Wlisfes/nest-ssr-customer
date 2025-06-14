@@ -4,3 +4,4 @@ export * from '@server/interface/global/request.resolver'
 /**system**/
 export * from '@server/interface/system/system-i18n.resolver'
 export * from '@server/interface/system/system-user.resolver'
+export * from '@server/interface/system/system-classify.resolver'
