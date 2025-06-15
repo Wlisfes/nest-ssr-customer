@@ -29,6 +29,9 @@ export interface BaseCreateOptions<T> extends BaseOptions {
 export class DatabaseService extends Logger {
     constructor(
         private readonly dataSource: DataSource,
+        @InjectRepository(schema.SchemaI18n) public readonly schemaI18n: Repository<schema.SchemaI18n>,
+        @InjectRepository(schema.SchemaImages) public readonly schemaImages: Repository<schema.SchemaImages>,
+        @InjectRepository(schema.SchemaClassify) public readonly schemaClassify: Repository<schema.SchemaClassify>,
         @InjectRepository(schema.SchemaUser) public readonly schemaUser: Repository<schema.SchemaUser>
     ) {
         super()

@@ -34,4 +34,18 @@ export class ClassifyService extends Logger {
             await ctx.release()
         }
     }
+
+    /**客户端产品系列列表**/
+    @AutoDescriptor
+    public async httpClientColumnClassify(request: OmixRequest) {
+        try {
+            return await this.database.fetchConnectBuilder(this.database.schemaClassify, async qb => {
+                return await qb.getMany().then(async list => {
+                    return await this.fetchResolver({ list })
+                })
+            })
+        } catch (err) {
+            return await this.fetchCatchCompiler(this.deplayName, err)
+        }
+    }
 }
