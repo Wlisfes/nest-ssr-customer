@@ -23,6 +23,12 @@ export function createRouter(options: Omix<{ ssr: boolean }>) {
                 component: Layout,
                 children: [
                     {
+                        path: '/classify/:keyId',
+                        name: 'BaseClassify',
+                        meta: { title: '商品列表', AUTH: 'NONE' },
+                        component: () => import('@/views/classify/classify.vue')
+                    },
+                    {
                         path: '/about',
                         name: 'About',
                         meta: { title: '关于我们', AUTH: 'NONE' },

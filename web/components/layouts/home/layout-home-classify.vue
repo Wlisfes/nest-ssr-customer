@@ -42,7 +42,7 @@ export default defineComponent({
                                 )
                             }
                             return (
-                                <router-link key={item.keyId} to={`/about`}>
+                                <router-link key={item.keyId} to={`/classify/${item.keyId}`}>
                                     <n-button class="h-80 p-10" quaternary focusable={false}>
                                         <div class="w-full h-full flex flex-col overflow-hidden">
                                             <div class="flex-1 flex flex-col items-center justify-end">
