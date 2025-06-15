@@ -9,10 +9,20 @@ export default defineComponent({
     setup(props, { slots, attrs }) {
         return () => (
             <n-layout class="h-full overflow-hidden" content-class="flex flex-col overflow-hidden">
-                <n-layout-header>
-                    <layout-common-navigate class="common-width-inline" element-class={attrs['element-class']}>
-                        {slots}
-                    </layout-common-navigate>
+                <n-layout-header class="w-full overflow-hidden">
+                    <n-element class="common-width-inline h-48 flex overflow-hidden">
+                        <router-link to="/" class="flex overflow-hidden">
+                            <n-button text focusable={false}>
+                                <common-wrapper name="nest-logo" size={42}></common-wrapper>
+                            </n-button>
+                        </router-link>
+                        <layout-common-classify></layout-common-classify>
+                        <n-element class="h-full flex items-center overflow-hidden">
+                            <layout-common-consumer></layout-common-consumer>
+                            <n-divider vertical class="h-20! m-inline-20!" />
+                            <layout-common-deploy></layout-common-deploy>
+                        </n-element>
+                    </n-element>
                 </n-layout-header>
                 <n-layout-content
                     class="flex-1 overflow-hidden"
@@ -21,7 +31,7 @@ export default defineComponent({
                     scrollbar-props={{ size: 100, trigger: 'none' }}
                 >
                     <n-element class="flex flex-col flex-1">
-                        <router-view></router-view>
+                        <router-view>{{ default: ({ Component, route }) => <Component key={route.fullPath} /> }}</router-view>
                     </n-element>
                     <layout-common-footer></layout-common-footer>
                 </n-layout-content>

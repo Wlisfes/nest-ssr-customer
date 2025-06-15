@@ -18,8 +18,7 @@ export default defineComponent({
         async function fetchUpdate(data: Omix) {
             return await setState({ visible: false }).then(async () => {
                 await nextTick()
-                await fetchI18nUpdate(data.value)
-                // return await setState({ value: data.value })
+                return await fetchI18nUpdate(data.value)
             })
         }
 
