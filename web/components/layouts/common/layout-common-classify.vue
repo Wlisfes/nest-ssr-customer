@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { defineComponent, PropType, CSSProperties, onMounted } from 'vue'
+import { defineComponent, computed, PropType } from 'vue'
 import { useRoute } from 'vue-router'
 
 export default defineComponent({
@@ -10,24 +10,26 @@ export default defineComponent({
     },
     setup(props) {
         const route = useRoute()
-
-        onMounted(() => console.log(props, route))
+        const link = computed<Array<Omix>>(() => {
+            return props.dataSource.slice(1).map(item => ({
+                ...item,
+                url: `/classify/${item.keyId}`,
+                type: route.params.keyId === item.keyId ? 'primary' : undefined
+            }))
+        })
 
         return () => (
-            <div class="layout-common-classify h-full flex flex-1 items-center p-inline-24 gap-20 overflow-hidden">
-                {props.dataSource.map(item => (
-                    <router-link key={item.keyId} to={`/classify/${item.keyId}`}>
-                        <n-button text type="primary">
-                            {item.en}
-                        </n-button>
-                    </router-link>
-                ))}
-                {/* {props.dataSource.map(item => (
-                    <n-button key={item.keyId} text tag="a" href={`/classify/${item.keyId}`} type="primary">
-                        {item.en}
-                    </n-button>
-                ))} */}
-            </div>
+            <n-element class="layout-common-classify h-full flex-1 p-inline-24 overflow-hidden">
+                <div class="h-full flex flex-1 gap-20 overflow-hidden">
+                    {link.value.map(item => (
+                        <router-link class="h-full flex items-center" key={item.keyId} to={item.url}>
+                            <n-button class="h-full" focusable={false} text type={item.type}>
+                                {item.en}
+                            </n-button>
+                        </router-link>
+                    ))}
+                </div>
+            </n-element>
         )
     }
 })

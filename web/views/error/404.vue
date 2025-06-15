@@ -2,7 +2,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-    name: 'About',
+    name: 'Base404',
     setup(props) {
         return () => (
             <n-element class="flex flex-col flex-1 justify-center items-center overflow-hidden">

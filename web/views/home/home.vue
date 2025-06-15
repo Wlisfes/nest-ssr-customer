@@ -5,7 +5,7 @@ import { useGlobal, useStore } from '@/store'
 import { useI18nContext } from '@/i18n'
 
 export default defineComponent({
-    name: 'Home',
+    name: 'BaseHome',
     async httpServer({ pinia, logger }) {
         // logger.info('[Home.vue]', {
         //     title: '大苏打33的撒大1111111dsadasdsaDDSADAASDSADASDASDASDAdas',

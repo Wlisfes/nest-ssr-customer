@@ -1,7 +1,8 @@
 import { createRouter as _createRouter, createMemoryHistory, createWebHistory } from 'vue-router'
 import Layout from '@/components/layouts/layout.vue'
-import Home from '@/views/home/home.vue'
-import Not from '@/views/error/404.vue'
+import BaseHome from '@/views/home/home.vue'
+import BaseSearch from '@/views/search/search.vue'
+import Base404 from '@/views/error/404.vue'
 
 export function createRouter(options: Omix<{ ssr: boolean }>) {
     return _createRouter({
@@ -10,16 +11,18 @@ export function createRouter(options: Omix<{ ssr: boolean }>) {
             {
                 path: '/',
                 name: 'HomeLayout',
+                props: { name: 'HomeLayout' },
                 component: Layout,
-                props: { name: Layout.name },
                 children: [
-                    { path: '/', name: 'Home', props: { name: Layout.name }, meta: { AUTH: 'NONE' }, component: Home },
-                    { path: '/:pathMatch(.*)*', name: 'Not', meta: { AUTH: 'NONE' }, component: Not }
+                    { path: '/', name: BaseHome.name, meta: { AUTH: 'NONE' }, component: BaseHome },
+                    { path: '/search', name: BaseSearch.name, meta: { AUTH: 'NONE' }, component: BaseSearch },
+                    { path: '/:pathMatch(.*)*', name: Base404.name, meta: { AUTH: 'NONE' }, component: Base404 }
                 ]
             },
             {
                 path: '/',
                 name: 'GlobalLayout',
+                props: { name: 'GlobalLayout' },
                 component: Layout,
                 children: [
                     {
