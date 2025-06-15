@@ -8,11 +8,20 @@ import { useCoutext, AUTH } from '@/hooks/hook-context'
 export const useMouse = defineStore('APP_NEST_MOUSE_STORE', () => {
     const { cookies } = useCoutext()
     const { state, setState } = useState({
+        /**开启搜索状态**/
+        search: false,
+        /**搜索关键字**/
+        keyword: '',
         /**主题**/
         theme: cookies.get(AUTH.APP_NEST_THEME) ?? 'light',
         /**主题色**/
         primaryColor: cookies.get(AUTH.APP_NEST_PRIMARY_COLOR) ?? '#536dfe'
     })
+
+    /**切换搜索状态**/
+    async function fetchSearchUpdate(search: boolean, keyword: string = state.keyword) {
+        return await setState({ search, keyword })
+    }
 
     /**切换主题**/
     async function fetchThemeUpdate(theme?: 'light' | 'dark') {
@@ -31,6 +40,7 @@ export const useMouse = defineStore('APP_NEST_MOUSE_STORE', () => {
         /**自定义主题配置**/
         themeOverrides: computed(() => themeOverrides(state.theme === 'dark', state)),
         setState,
+        fetchSearchUpdate,
         fetchThemeUpdate
     }
 })

@@ -1,12 +1,15 @@
 <script lang="tsx">
 import { defineComponent } from 'vue'
+import { useGlobal, useMouse, useStore } from '@/store'
 
 export default defineComponent({
     name: 'LayoutCommonConsumer',
     setup(props) {
+        const { search, keyword, fetchSearchUpdate } = useStore(useMouse)
+
         return () => (
             <n-element class="layout-common-consumer h-full flex items-center gap-28">
-                <n-button text focusable={false}>
+                <n-button text focusable={false} onClick={(event: MouseEvent) => fetchSearchUpdate(true)}>
                     <common-wrapper name="nest-search" size={24}></common-wrapper>
                 </n-button>
                 <n-button text focusable={false}>
