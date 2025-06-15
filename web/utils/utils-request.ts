@@ -1,9 +1,4 @@
-import axios, { AxiosResponse, InternalAxiosRequestConfig, AxiosInstance, AxiosRequestConfig } from 'axios'
-
-export declare interface AxiosRequest extends AxiosInstance {
-    <T = any, R = AxiosResponse<T>, D = any>(config: AxiosRequestConfig<D>): Promise<R & Omix<T>>
-    <T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>): Promise<R & Omix<T>>
-}
+import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
 export const request: AxiosRequest = axios.create({
     baseURL: import.meta.env.NODE_API_BASEURL,
@@ -24,7 +19,7 @@ request.interceptors.request.use(
 request.interceptors.response.use(fetchInizeNotice, error => Promise.reject(error))
 
 function fetchInizeNotice(response: AxiosResponse) {
-    if (response.data.code != 0) {
+    if (response.data.code !== 200) {
         return Promise.reject(response.data)
     }
     return Promise.resolve(response.data)

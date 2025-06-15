@@ -57,7 +57,7 @@ export function useI18nContext() {
     }
 
     /**文字转换**/
-    function fallback(data: { cn: number | string; en: number | string }): string | number {
+    function fallback(data: Partial<Record<keyof typeof messages, string | number>>): string | number {
         return data[locale.value] ?? ''
     }
 

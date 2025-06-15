@@ -21,12 +21,13 @@ export default defineComponent({
     //     }
     // },
     setup(props) {
+        const { classify } = useStore(useGlobal)
         const { ctx, t } = useI18nContext()
 
         return () => (
             <n-element class="flex flex-col flex-1 overflow-hidden">
-                <layout-home-columns></layout-home-columns>
-                <layout-home-carousel></layout-home-carousel>
+                <layout-home-classify data-source={classify.value}></layout-home-classify>
+                {/* <layout-home-carousel></layout-home-carousel>
                 <layout-home-browse></layout-home-browse>
                 <layout-home-choose></layout-home-choose>
                 <div class="common-width-inline flex flex-col items-center overflow-hidden p-bs-60 p-be-76">
@@ -38,7 +39,7 @@ export default defineComponent({
                     <n-button size="large" type="primary">
                         Contact Sales
                     </n-button>
-                </div>
+                </div> */}
             </n-element>
         )
     }

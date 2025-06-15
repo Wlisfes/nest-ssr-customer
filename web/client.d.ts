@@ -1,5 +1,7 @@
 /// <reference types="vite/client" />
+import { AxiosInstance, InternalAxiosRequestConfig, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { RouteLocationNormalizedLoaded, Router } from 'vue-router'
+import { ResultResolver } from '@/interface/instance.resolver'
 import { Request } from 'express'
 import { Pinia } from 'pinia'
 import { Logger } from 'winston'
@@ -22,6 +24,13 @@ export interface ContextServerOptions {
     router: Router
     request: Request
     env: ImportMetaEnv
+}
+
+declare global {
+    interface AxiosRequest extends AxiosInstance {
+        <T = any, R = AxiosResponse<T>, D = any>(config: AxiosRequestConfig<D>): Promise<R & ResultResolver<T>>
+        <T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>): Promise<R & ResultResolver<T>>
+    }
 }
 
 declare module 'vue' {
