@@ -40,8 +40,13 @@ export class ClassifyService extends Logger {
     public async httpClientColumnClassify(request: OmixRequest) {
         try {
             return await this.database.fetchConnectBuilder(this.database.schemaClassify, async qb => {
-                return await qb.getMany().then(async list => {
-                    return await this.fetchResolver({ list })
+                await qb.leftJoinAndMapOne('t.image', schema.SchemaImages, 'image', 'image.keyId = t.fileId')
+                await this.database.fetchSelection(qb, [
+                    ['t', ['keyId', 'cn', 'en', 'ru', 'es', 'pt', 'status']],
+                    ['image', ['keyId', 'folder', 'url', 'width', 'height']]
+                ])
+                return await qb.getManyAndCount().then(async ([list = [], total = 0]) => {
+                    return await this.fetchResolver({ total, list })
                 })
             })
         } catch (err) {

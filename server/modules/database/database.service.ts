@@ -2,6 +2,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
 import { Repository, DataSource, SelectQueryBuilder } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Logger, AutoDescriptor } from '@server/modules/logger/logger.service'
+import { fetchSelection } from '@server/utils/utils-schema'
 import { OmixRequest } from '@server/interface/instance.resolver'
 import * as schema from '@server/modules/database/database.schema'
 
@@ -43,6 +44,12 @@ export class DatabaseService extends Logger {
             return await handler(where)
         }
         return where
+    }
+
+    /**字段查询输出组合**/
+    public async fetchSelection<T>(qb: SelectQueryBuilder<T>, keys: Array<[string, Array<string>]>) {
+        const fields = new Set(keys.map(([alias, names]) => fetchSelection(alias, names)).flat(Infinity)) as never as Array<string>
+        return await qb.select([...fields])
     }
 
     /**typeorm事务**/
