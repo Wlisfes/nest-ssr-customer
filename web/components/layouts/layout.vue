@@ -10,6 +10,7 @@ export default defineComponent({
     },
     setup(props) {
         const { classify } = useStore(useGlobal)
+        const { search } = useStore(useMouse)
 
         return () => (
             <n-layout class="h-full overflow-hidden" content-class="flex flex-col overflow-hidden">
@@ -20,18 +21,22 @@ export default defineComponent({
                                 <common-wrapper name="nest-logo" size={42}></common-wrapper>
                             </n-button>
                         </router-link>
-                        <Fragment>
-                            {['GlobalLayout'].includes(props.name) ? (
-                                <layout-common-classify data-source={classify.value}></layout-common-classify>
-                            ) : (
-                                <n-element class="h-full flex-1"></n-element>
-                            )}
-                            <n-element class="h-full flex items-center overflow-hidden">
-                                <layout-common-consumer></layout-common-consumer>
-                                <n-divider vertical class="h-20! m-inline-20!" />
-                                <layout-common-deploy></layout-common-deploy>
-                            </n-element>
-                        </Fragment>
+                        {search.value ? (
+                            <layout-common-search></layout-common-search>
+                        ) : (
+                            <Fragment>
+                                {['GlobalLayout'].includes(props.name) ? (
+                                    <layout-common-classify data-source={classify.value}></layout-common-classify>
+                                ) : (
+                                    <n-element class="h-full flex-1"></n-element>
+                                )}
+                                <n-element class="h-full flex items-center overflow-hidden">
+                                    <layout-common-consumer></layout-common-consumer>
+                                    <n-divider vertical class="h-20! m-inline-20!" />
+                                    <layout-common-deploy></layout-common-deploy>
+                                </n-element>
+                            </Fragment>
+                        )}
                     </n-element>
                 </n-layout-header>
                 <n-layout-content
