@@ -36,3 +36,12 @@ export function fetchIPClient(request: Omix<Request>) {
     const ipv4 = getClientIp(request)
     return ['localhost', '::1', '::ffff:127.0.0.1'].includes(ipv4) ? '127.0.0.1' : ipv4.replace(/^.*:/, '')
 }
+
+/**条件链式执行函数**/
+export async function fetchHandler<T>(where: boolean | Function, handler?: Function): Promise<T> {
+    const value = typeof where === 'function' ? await where() : where
+    if (value && typeof handler === 'function') {
+        return (await handler()) as T
+    }
+    return value as T
+}

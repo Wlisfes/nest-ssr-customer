@@ -45,7 +45,7 @@ export function httpBasePayPlatform() {
 export function httpClientColumnClassify(data: Omix = {}) {
     return request<ResultColumn>({
         url: `/api/v1/system/classify/client/column`,
-        method: 'POST',
+        method: 'GET',
         data
     })
 }

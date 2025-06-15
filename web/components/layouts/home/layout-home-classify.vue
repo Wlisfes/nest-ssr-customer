@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { defineComponent, PropType, CSSProperties } from 'vue'
+import { defineComponent, PropType, CSSProperties, onMounted } from 'vue'
 
 export default defineComponent({
     name: 'LayoutHomeClassify',
@@ -8,6 +8,8 @@ export default defineComponent({
         dataSource: { type: Array as PropType<Array<Omix>>, default: () => [] }
     },
     setup(props) {
+        onMounted(() => console.log(props.dataSource))
+
         /**分类样式聚合**/
         function fetchClassStyle(item: Omix): CSSProperties {
             return {

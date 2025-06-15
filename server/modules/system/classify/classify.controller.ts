@@ -20,7 +20,16 @@ export class ClassifyController {
         return await this.classifyService.httpBaseClassifyCreate(request, body)
     }
 
-    @Post('/client/column')
+    @Post('/skill/create')
+    @ApiDecorator({
+        operation: { summary: '新增产品系列配置' },
+        response: { status: 200, description: 'OK' }
+    })
+    public async httpBaseClassifySkillCreate(@Request() request: OmixRequest, @Body() body: field.BaseClassifySkillCreate) {
+        return await this.classifyService.httpBaseClassifySkillCreate(request, body)
+    }
+
+    @Get('/client/column')
     @ApiDecorator({
         operation: { summary: '客户端产品系列列表' },
         response: { status: 200, description: 'OK' }

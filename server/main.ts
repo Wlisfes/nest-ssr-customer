@@ -25,7 +25,7 @@ export async function setupSwagger(app: NestExpressApplication) {
         .setDescription(process.env.NODE_SEO_DESCRIPTION)
         .setVersion('1.0.0')
         .addBearerAuth({ type: 'apiKey', in: 'header', name: 'authorization' }, 'authorization')
-        .addGlobalParameters({ name: 'platform', in: 'header' })
+        // .addGlobalParameters({ name: 'platform', in: 'header' })
         .build()
     const document = SwaggerModule.createDocument(app, builder)
     return SwaggerModule.setup('/api/swagger', app, document, {
